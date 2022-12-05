@@ -23,11 +23,6 @@ variable "iam_user_create_login_profile" {
   type        = bool
 }
 
-variable "iam_group_with_policy" {
-  description = "IAM Group 목록"
-  type        = map(any)
-}
-
 variable "tags_iac" {
   description = "Resource에 어떤 IaC를 사용했는지"
   type        = string
