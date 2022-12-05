@@ -54,6 +54,11 @@ variable "workspace_name" {
   type        = map(any)
 }
 
+variable "workspace_working_directory_prefix" {
+  description = "Terraform Cloud working directory prefix"
+  type        = string
+}
+
 variable "workspace_working_directory" {
   description = "Terraform Cloud working directory"
   type        = map(any)

@@ -15,13 +15,15 @@ github_branch     = "main"
 workspace_name = {
   iam        = "iam"
   monitoring = "monitoring"
-  network = "network"
+  network    = "network"
 }
+
+workspace_working_directory_prefix = "infra"
 
 workspace_working_directory = {
   iam        = "aws_iam"
   monitoring = "aws_monitoring"
-  network = "aws_network"
+  network    = "aws_network"
 }
 
 aws_account_id = "901371017570"

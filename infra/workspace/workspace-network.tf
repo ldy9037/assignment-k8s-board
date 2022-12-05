@@ -2,7 +2,7 @@ resource "tfe_workspace" "network_workspace" {
   name                = var.workspace_name["network"]
   organization        = tfe_organization.organization.id
   terraform_version   = var.tfc_terraform_version
-  working_directory   = var.workspace_working_directory["network"]
+  working_directory   = "${var.workspace_working_directory_prefix}/${var.workspace_working_directory["network"]}"
   global_remote_state = true
 
   vcs_repo {
