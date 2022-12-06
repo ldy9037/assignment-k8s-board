@@ -16,6 +16,7 @@ workspace_name = {
   iam        = "iam"
   monitoring = "monitoring"
   network    = "network"
+  storage    = "storage"
 }
 
 workspace_working_directory_prefix = "infra"
@@ -24,6 +25,7 @@ workspace_working_directory = {
   iam        = "aws_iam"
   monitoring = "aws_monitoring"
   network    = "aws_network"
+  storage    = "aws_storage"
 }
 
 aws_account_id = "901371017570"
