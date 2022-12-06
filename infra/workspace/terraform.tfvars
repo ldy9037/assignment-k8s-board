@@ -17,6 +17,7 @@ workspace_name = {
   monitoring = "monitoring"
   network    = "network"
   storage    = "storage"
+  cicd       = "cicd"
 }
 
 workspace_working_directory_prefix = "infra"
@@ -26,6 +27,7 @@ workspace_working_directory = {
   monitoring = "aws_monitoring"
   network    = "aws_network"
   storage    = "aws_storage"
+  cicd       = "aws_cicd"
 }
 
 aws_account_id = "901371017570"
