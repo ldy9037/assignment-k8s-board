@@ -33,5 +33,6 @@ module "s3_static_contents" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.1.1"
 
-  bucket = "s3-k8s-board-static-contents"  
+  bucket = "s3-k8s-board-static-contents"
+  acl    = "public-read"
 }
