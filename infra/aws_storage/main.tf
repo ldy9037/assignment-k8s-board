@@ -29,6 +29,11 @@ provider "aws" {
   }
 }
 
+data "tfe_outputs" "dns_output" {
+  organization = var.organization_name
+  workspace    = var.dns_workspace_name
+}
+
 data "aws_iam_policy_document" "allow_public_read_role_policy" {
   statement {
     actions = [
@@ -61,4 +66,12 @@ module "s3_static_contents" {
     index_document = var.static_contents_website_index
     routing_rules  = var.static_contents_website_routing_rules
   }
+}
+
+resource "aws_route53_record" "static_content_record" {
+  zone_id = values(data.tfe_outputs.dns_output.values.route53_zones_id)[0]
+  name    = var.route53_record_name
+  type    = var.route53_record_type
+  ttl     = var.route53_record_ttl
+  records = [module.s3_static_contents.s3_bucket_website_domain]
 }

@@ -42,3 +42,28 @@ variable "static_contents_website_routing_rules" {
   description = "AWS S3 Website index 페이지"
   type        = list(any)
 }
+
+variable "organization_name" {
+  description = "Organization name"
+  type        = string
+}
+
+variable "dns_workspace_name" {
+  description = "DNS workspace name"
+  type        = string
+}
+
+variable "route53_record_name" {
+  description = "Record 이름"
+  type        = string
+}
+
+variable "route53_record_type" {
+  description = "Record 타입"
+  type        = string
+}
+
+variable "route53_record_ttl" {
+  description = "Record TTL"
+  type        = number
+}

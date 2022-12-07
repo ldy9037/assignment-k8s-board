@@ -9,3 +9,7 @@ static_contents_website_routing_rules = [{
     replace_key_with = "errors/404-error.html"
   }
 }]
+
+route53_record_name = "board"
+route53_record_type = "CNAME"
+route53_record_ttl  = 300
