@@ -78,3 +78,11 @@ resource "tfe_variable" "network_workspace_name" {
   description     = "Network workspace name"
   variable_set_id = tfe_variable_set.variable_set_global.id
 }
+
+resource "tfe_variable" "dns_workspace_name" {
+  key             = "dns_workspace_name"
+  value           = tfe_workspace.dns_workspace.name
+  category        = "terraform"
+  description     = "DNS workspace name"
+  variable_set_id = tfe_variable_set.variable_set_global.id
+}
