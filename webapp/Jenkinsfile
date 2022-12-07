@@ -4,7 +4,9 @@ pipeline {
     stages {
         stage('deploy') {
             steps {
-              sh "aws s3 cp webapp/ s3://s3-k8s-board-static-contents --recursive"
+                withAWS(region:'ap-northeast-2',credentials:'1b85d2e9-4998-441a-9bac-da9a927e6720') {
+                  sh "aws s3 cp webapp/ s3://s3-k8s-board-static-contents --recursive"
+                }
             }
         }
     }
