@@ -30,6 +30,53 @@ sg_developer_was_ingress_with_cidr_blocks = [
   }
 ]
 
+sg_githubhook_was_name        = "githubhook_to_was_sg"
+sg_githubhook_was_description = "Allows githubhook to access was"
+sg_githubhook_was_ingress_with_cidr_blocks = [
+  {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    description = "github hook IP"
+    cidr_blocks = "192.30.252.0/22"
+  },
+  {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    description = "github hook IP"
+    cidr_blocks = "185.199.108.0/22"
+  },
+  {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    description = "github hook IP"
+    cidr_blocks = "140.82.112.0/20"
+  },
+  {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    description = "github hook IP"
+    cidr_blocks = "143.55.64.0/20"
+  },
+  {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    description = "github hook IP"
+    cidr_blocks = "2a0a:a440::/29"
+  },
+  {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    description = "github hook IP"
+    cidr_blocks = "2606:50c0::/32"
+  }
+]
+
 sg_all_egress_with_cidr_blocks = [
   {
     rule = "all-all"

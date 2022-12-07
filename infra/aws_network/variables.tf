@@ -88,6 +88,21 @@ variable "sg_developer_was_ingress_with_cidr_blocks" {
   type        = list(any)
 }
 
+variable "sg_githubhook_was_name" {
+  description = "Security Group name"
+  type        = string
+}
+
+variable "sg_githubhook_was_description" {
+  description = "Security Group description"
+  type        = string
+}
+
+variable "sg_githubhook_was_ingress_with_cidr_blocks" {
+  description = "Security Group ingress with cidr blocks"
+  type        = list(any)
+}
+
 variable "sg_all_egress_with_cidr_blocks" {
   description = "Security Group egress with cidr blocks"
   type        = list(any)

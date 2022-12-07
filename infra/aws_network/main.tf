@@ -65,3 +65,14 @@ module "developer_to_was_sg" {
   ingress_with_cidr_blocks = var.sg_developer_was_ingress_with_cidr_blocks
   egress_with_cidr_blocks  = var.sg_all_egress_with_cidr_blocks
 }
+
+module "githubhook_to_was_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = var.sg_githubhook_was_name
+  description = var.sg_githubhook_was_description
+  vpc_id      = module.vpc.vpc_id
+
+  ingress_with_cidr_blocks = var.sg_githubhook_was_ingress_with_cidr_blocks
+  egress_with_cidr_blocks  = var.sg_all_egress_with_cidr_blocks
+}
