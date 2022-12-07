@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('deploy') {
+            steps {
+              sh "aws s3 cp ./ s3://s3-k8s-board-static-contents/ --recursive"
+            }
+        }
+    }
+}
