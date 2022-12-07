@@ -73,6 +73,7 @@ module "githubhook_to_was_sg" {
   description = var.sg_githubhook_was_description
   vpc_id      = module.vpc.vpc_id
 
-  ingress_with_cidr_blocks = var.sg_githubhook_was_ingress_with_cidr_blocks
-  egress_with_cidr_blocks  = var.sg_all_egress_with_cidr_blocks
+  ingress_with_cidr_blocks      = var.sg_githubhook_was_ingress_with_cidr_blocks
+  ingress_with_ipv6_cidr_blocks = var.sg_githubhook_was_ingress_with_ipv6_cidr_blocks
+  egress_with_cidr_blocks       = var.sg_all_egress_with_cidr_blocks
 }

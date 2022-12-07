@@ -103,6 +103,11 @@ variable "sg_githubhook_was_ingress_with_cidr_blocks" {
   type        = list(any)
 }
 
+variable "sg_githubhook_was_ingress_with_ipv6_cidr_blocks" {
+  description = "Security Group ingress with ipv6 cidr blocks"
+  type        = list(any)
+}
+
 variable "sg_all_egress_with_cidr_blocks" {
   description = "Security Group egress with cidr blocks"
   type        = list(any)

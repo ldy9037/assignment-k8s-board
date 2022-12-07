@@ -60,20 +60,23 @@ sg_githubhook_was_ingress_with_cidr_blocks = [
     protocol    = "tcp"
     description = "github hook IP"
     cidr_blocks = "143.55.64.0/20"
+  }
+]
+
+sg_githubhook_was_ingress_with_ipv6_cidr_blocks = [
+  {
+    from_port        = 8080
+    to_port          = 8080
+    protocol         = "tcp"
+    description      = "github hook IP"
+    ipv6_cidr_blocks = "2a0a:a440::/29"
   },
   {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    description = "github hook IP"
-    cidr_blocks = "2a0a:a440::/29"
-  },
-  {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    description = "github hook IP"
-    cidr_blocks = "2606:50c0::/32"
+    from_port        = 8080
+    to_port          = 8080
+    protocol         = "tcp"
+    description      = "github hook IP"
+    ipv6_cidr_blocks = "2606:50c0::/32"
   }
 ]
 
