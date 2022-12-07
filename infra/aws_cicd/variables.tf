@@ -52,3 +52,43 @@ variable "ec2_jenkins_instance_type" {
   description = "EC2 instance type"
   type        = string
 }
+
+variable "iam_user_jenkins_name" {
+  description = "Jenkins Service 계정"
+  type        = string
+}
+
+variable "iam_user_jenkins_create_iam_access_key" {
+  description = "IAM User Access key 초기 생성 여부"
+  type        = bool
+}
+
+variable "iam_user_jenkins_create_login_profile" {
+  description = "IAM User login 허용 여부"
+  type        = bool
+}
+
+variable "iam_group_jenkins_name" {
+  description = "IAM Group 이름"
+  type        = string
+}
+
+variable "iam_group_jenkins_create_group" {
+  description = "IAM Group 생성 여부"
+  type        = bool
+}
+
+variable "jenkins_s3_policy_name" {
+  description = "Jenkins 용 s3 policy 이름"
+  type        = string
+}
+
+variable "jenkins_s3_policy_path" {
+  description = "Jenkins 용 s3 policy path"
+  type        = string
+}
+
+variable "jenkins_s3_policy_description" {
+  description = "Jenkins 용 s3 policy 설명"
+  type        = string
+}
