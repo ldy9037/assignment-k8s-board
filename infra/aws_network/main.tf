@@ -43,3 +43,25 @@ module "vpc" {
   create_database_subnet_group = var.create_database_subnet_group
   enable_nat_gateway           = var.enable_nat_gateway
 }
+
+module "developer_to_ssh_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = var.sg_developer_ssh_name
+  description = var.sg_developer_ssh_description
+  vpc_id      = module.vpc.vpc_id
+
+  ingress_with_cidr_blocks = var.sg_developer_ssh_ingress_with_cidr_blocks
+  egress_with_cidr_blocks  = var.sg_all_egress_with_cidr_blocks
+}
+
+module "developer_to_was_sg" {
+  source = "terraform-aws-modules/security-group/aws"
+
+  name        = var.sg_developer_was_name
+  description = var.sg_developer_was_description
+  vpc_id      = module.vpc.vpc_id
+
+  ingress_with_cidr_blocks = var.sg_developer_was_ingress_with_cidr_blocks
+  egress_with_cidr_blocks  = var.sg_all_egress_with_cidr_blocks
+}

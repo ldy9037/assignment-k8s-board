@@ -57,3 +57,38 @@ variable "enable_nat_gateway" {
   description = "NAT Gateway 허용 여부"
   type        = bool
 }
+
+variable "sg_developer_ssh_name" {
+  description = "Security Group name"
+  type        = string
+}
+
+variable "sg_developer_ssh_description" {
+  description = "Security Group description"
+  type        = string
+}
+
+variable "sg_developer_ssh_ingress_with_cidr_blocks" {
+  description = "Security Group ingress with cidr blocks"
+  type        = list(any)
+}
+
+variable "sg_developer_was_name" {
+  description = "Security Group name"
+  type        = string
+}
+
+variable "sg_developer_was_description" {
+  description = "Security Group description"
+  type        = string
+}
+
+variable "sg_developer_was_ingress_with_cidr_blocks" {
+  description = "Security Group ingress with cidr blocks"
+  type        = list(any)
+}
+
+variable "sg_all_egress_with_cidr_blocks" {
+  description = "Security Group egress with cidr blocks"
+  type        = list(any)
+}

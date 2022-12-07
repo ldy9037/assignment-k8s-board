@@ -27,3 +27,13 @@ output "public_subnets" {
   description = "Public Subnet IDs"
   value       = module.vpc.public_subnets
 }
+
+output "developer_to_ssh_sg" {
+  description = "Security Group developer_to_ssh_sg"
+  value       = module.developer_to_ssh_sg.security_group_id
+}
+
+output "developer_to_was_sg" {
+  description = "Security Group developer_to_was_sg"
+  value       = module.developer_to_was_sg.security_group_id
+}
