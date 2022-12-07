@@ -34,6 +34,11 @@ data "tfe_outputs" "network_output" {
   workspace    = var.network_workspace_name
 }
 
+data "tfe_outputs" "dns_output" {
+  organization = var.organization_name
+  workspace    = var.dns_workspace_name
+}
+
 module "jenkins_s3_policy" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.1.0"
@@ -95,6 +100,15 @@ module "ec2_jenkins" {
   key_name      = var.ec2_jenkins_name
   vpc_security_group_ids = [
     data.tfe_outputs.network_output.values.developer_to_ssh_sg,
-    data.tfe_outputs.network_output.values.developer_to_was_sg
+    data.tfe_outputs.network_output.values.developer_to_was_sg,
+    data.tfe_outputs.network_output.values.githubhook_to_was_sg
   ]
+}
+
+resource "aws_route53_record" "record" {
+  zone_id = values(data.tfe_outputs.dns_output.values.route53_zones_id)[0]
+  name    = var.ec2_jenkins_name
+  type    = var.route53_record_type
+  ttl     = var.route53_record_ttl
+  records = [module.ec2_jenkins[0].public_ip]
 }

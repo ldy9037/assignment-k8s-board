@@ -38,6 +38,11 @@ variable "network_workspace_name" {
   type        = string
 }
 
+variable "dns_workspace_name" {
+  description = "DNS workspace name"
+  type        = string
+}
+
 variable "ec2_jenkins_name" {
   description = "EC2 instance name"
   type        = string
@@ -91,4 +96,14 @@ variable "jenkins_s3_policy_path" {
 variable "jenkins_s3_policy_description" {
   description = "Jenkins 용 s3 policy 설명"
   type        = string
+}
+
+variable "route53_record_type" {
+  description = "Record 타입"
+  type        = string
+}
+
+variable "route53_record_ttl" {
+  description = "Record TTL"
+  type        = number
 }

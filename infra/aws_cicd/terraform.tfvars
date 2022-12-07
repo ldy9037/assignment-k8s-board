@@ -15,3 +15,6 @@ iam_group_jenkins_create_group = true
 jenkins_s3_policy_name        = "S3PutAndReadAccess"
 jenkins_s3_policy_path        = "/"
 jenkins_s3_policy_description = "Allow s3 put and read"
+
+route53_record_type = "A"
+route53_record_ttl  = 300
