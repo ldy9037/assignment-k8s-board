@@ -50,13 +50,11 @@ module "jenkins_s3_policy" {
       "Action": [
         "s3:PutObject",
         "s3:DeleteObject",
-        "s3:DeleteObjects",
         "s3:GetObject",
-        "s3:ListBuckets",
-        "s3:GetBucket"
+        "s3:ListBucket"
       ],
       "Effect": "Allow",
-      "Resource": "s3:*"
+      "Resource": "arn:aws:s3:::*"
     }
   ]
 }
