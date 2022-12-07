@@ -18,6 +18,7 @@ workspace_name = {
   network    = "network"
   storage    = "storage"
   cicd       = "cicd"
+  dns        = "dns"
 }
 
 workspace_working_directory_prefix = "infra"
@@ -28,6 +29,7 @@ workspace_working_directory = {
   network    = "aws_network"
   storage    = "aws_storage"
   cicd       = "aws_cicd"
+  dns        = "aws_dns"
 }
 
 aws_account_id = "901371017570"
