@@ -37,3 +37,8 @@ output "developer_to_was_sg" {
   description = "Security Group developer_to_was_sg"
   value       = module.developer_to_was_sg.security_group_id
 }
+
+output "githubhook_to_was_sg" {
+  description = "Security Group githubhook_to_was_sg"
+  value       = module.githubhook_to_was_sg.security_group_id
+}
