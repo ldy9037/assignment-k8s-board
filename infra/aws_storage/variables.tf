@@ -28,9 +28,9 @@ variable "static_contents_bucket" {
   type        = string
 }
 
-variable "static_contents_acl" {
-  description = "AWS Resource bucket ACL"
-  type        = string
+variable "static_contents_attach_policy" {
+  description = "AWS Resource bucket policy 적용 여부"
+  type        = bool
 }
 
 variable "static_contents_website_index" {

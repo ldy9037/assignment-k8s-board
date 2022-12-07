@@ -29,15 +29,36 @@ provider "aws" {
   }
 }
 
+data "aws_iam_policy_document" "allow_public_read_role_policy" {
+  statement {
+    actions = [
+      "s3:GetObject",
+    ]
+
+    principals {
+      type        = "*"
+      identifiers = ["*"]
+    }
+
+    effect = "Allow"
+
+    resources = [
+      "arn:aws:s3:::${var.static_contents_bucket}/*",
+    ]
+  }
+}
+
 module "s3_static_contents" {
   source  = "terraform-aws-modules/s3-bucket/aws"
   version = "3.1.1"
 
   bucket = var.static_contents_bucket
-  acl    = var.static_contents_acl
+
+  attach_policy = var.static_contents_attach_policy
+  policy        = data.aws_iam_policy_document.allow_public_read_role_policy.json
 
   website = {
     index_document = var.static_contents_website_index
-    routing_rules = var.static_contents_website_routing_rules
+    routing_rules  = var.static_contents_website_routing_rules
   }
 }
