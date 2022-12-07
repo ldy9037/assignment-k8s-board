@@ -73,5 +73,5 @@ resource "aws_route53_record" "static_content_record" {
   name    = var.route53_record_name
   type    = var.route53_record_type
   ttl     = var.route53_record_ttl
-  records = [module.s3_static_contents.s3_bucket_website_domain]
+  records = [module.s3_static_contents.s3_bucket_website_endpoint]
 }
