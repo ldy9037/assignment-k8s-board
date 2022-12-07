@@ -42,8 +42,12 @@ module "ec2_jenkins" {
 
   name = "${var.ec2_jenkins_name}-${count.index + 1}"
 
-  ami                    = var.ec2_jenkins_ami
-  instance_type          = var.ec2_jenkins_instance_type
-  subnet_id              = data.tfe_outputs.network_output.values.public_subnets[count.index]
-  vpc_security_group_ids = []
+  ami           = var.ec2_jenkins_ami
+  instance_type = var.ec2_jenkins_instance_type
+  subnet_id     = data.tfe_outputs.network_output.values.public_subnets[count.index]
+  key_name      = var.ec2_jenkins_name
+  vpc_security_group_ids = [
+    data.tfe_outputs.network_output.values.developer_to_ssh_sg,
+    data.tfe_outputs.network_output.values.developer_to_was_sg
+  ]
 }
