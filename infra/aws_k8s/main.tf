@@ -43,28 +43,19 @@ data "aws_iam_policy" "iam_policy_eks_cluster" {
   name = var.iam_policy_eks_cluster_name
 }
 
-module "board_cluster_s3_policy" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
-  version = "5.1.0"
+data "aws_iam_policy_document" "allow_public_read_role_policy" {
+  statement {
+    actions = [
+      "sts:AssumeRole",
+    ]
 
-  name        = var.board_cluster_s3_policy_name
-  path        = var.board_cluster_s3_policy_path
-  description = var.board_cluster_s3_policy_description
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {
-        "Service": "eks.amazonaws.com"
-      },
-      "Action": "sts:AssumeRole"
+    principals {
+      type        = "Service"
+      identifiers = ["eks.amazonaws.com"]
     }
-  ]
-}
-EOF
+
+    effect = "Allow"
+  }
 }
 
 module "eks_board_role" {
@@ -75,12 +66,10 @@ module "eks_board_role" {
 
   role_name = var.eks_board_role_name
 
+  custom_role_trust_policy = data.aws_iam_policy_document.allow_public_read_role_policy.json
   custom_role_policy_arns = [
-    module.board_cluster_s3_policy.arn,
     data.aws_iam_policy.iam_policy_eks_cluster.arn
   ]
-
-  number_of_custom_role_policy_arns = 2
 }
 
 module "ecr-board" {

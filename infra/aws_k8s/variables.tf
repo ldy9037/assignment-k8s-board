@@ -48,21 +48,6 @@ variable "ecr_board_repository_lifecycle_policy" {
   type        = list(any)
 }
 
-variable "board_cluster_s3_policy_name" {
-  description = "board cluster 용 정책 명"
-  type        = string
-}
-
-variable "board_cluster_s3_policy_path" {
-  description = "board cluster 용 정책 경로"
-  type        = string
-}
-
-variable "board_cluster_s3_policy_description" {
-  description = "board cluster 용 정책"
-  type        = string
-}
-
 variable "iam_policy_eks_cluster_name" {
   description = "관리형 EKS Cluster 정책 이름"
   type        = string
