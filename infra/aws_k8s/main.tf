@@ -113,4 +113,18 @@ module "eks_board" {
   subnet_ids = data.tfe_outputs.network_output.values.private_subnets
 
   iam_role_arn = module.eks_board_role.iam_role_arn
+
+  eks_managed_node_groups = {
+    complete = {
+      name = "board-node-group"
+
+      min_size = 1
+      max_size = 2
+
+      ami_id         = "ami-06eea3cd85e2db8ce"
+      instance_types = ["t2.micro"]
+
+      iam_role_arn = module.eks_board_node_role.iam_role_arn
+    }
+  }
 }
