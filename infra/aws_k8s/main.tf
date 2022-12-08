@@ -72,7 +72,7 @@ module "eks_board_role" {
   ]
 }
 
-module "ecr-board" {
+module "ecr_board" {
   source  = "terraform-aws-modules/ecr/aws"
   version = "1.5.1"
 
@@ -81,4 +81,19 @@ module "ecr-board" {
   repository_lifecycle_policy = jsonencode({
     rules = var.ecr_board_repository_lifecycle_policy
   })
+}
+
+module "eks_board" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "19.0.4"
+
+  cluster_name    = var.eks_board_cluster_name
+  cluster_version = var.eks_board_cluster_version
+
+  cluster_endpoint_public_access = var.eks_board_cluster_endpoint_public_access
+
+  vpc_id     = data.tfe_outputs.network_output.values.vpc_id
+  subnet_ids = data.tfe_outputs.network_output.values.private_subnets
+
+  iam_role_arn = module.eks_board_role.iam_role_arn
 }
