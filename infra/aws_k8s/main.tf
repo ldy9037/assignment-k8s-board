@@ -43,7 +43,12 @@ data "aws_iam_policy" "iam_policy_eks_cluster" {
   name = var.iam_policy_eks_cluster_name
 }
 
-data "aws_iam_policy_document" "allow_public_read_role_policy" {
+data "aws_iam_policy" "iam_policy_eks_node" {
+  count = length(var.iam_policy_eks_node_names)
+  name  = var.iam_policy_eks_node_names[count.index]
+}
+
+data "aws_iam_policy_document" "eks_role_trust_policy" {
   statement {
     actions = [
       "sts:AssumeRole",
@@ -66,10 +71,22 @@ module "eks_board_role" {
 
   role_name = var.eks_board_role_name
 
-  custom_role_trust_policy = data.aws_iam_policy_document.allow_public_read_role_policy.json
+  custom_role_trust_policy = data.aws_iam_policy_document.eks_role_trust_policy.json
   custom_role_policy_arns = [
     data.aws_iam_policy.iam_policy_eks_cluster.arn
   ]
+}
+
+module "eks_board_node_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+  version = "5.9.1"
+
+  create_role = var.eks_board_node_role_create_role
+
+  role_name = var.eks_board_node_role_name
+
+  custom_role_trust_policy = data.aws_iam_policy_document.eks_role_trust_policy.json
+  custom_role_policy_arns  = [for eks_node_policy in data.aws_iam_policy.iam_policy_eks_node : eks_node_policy.arn]
 }
 
 module "ecr_board" {

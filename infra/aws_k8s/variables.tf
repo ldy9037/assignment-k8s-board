@@ -53,12 +53,27 @@ variable "iam_policy_eks_cluster_name" {
   type        = string
 }
 
+variable "iam_policy_eks_node_names" {
+  description = "관리형 EKS Node 정책 이름"
+  type        = list(string)
+}
+
 variable "eks_board_role_create_role" {
   description = "role 생성 여부"
   type        = bool
 }
 
 variable "eks_board_role_name" {
+  description = "role 이름"
+  type        = string
+}
+
+variable "eks_board_node_role_create_role" {
+  description = "role 생성 여부"
+  type        = bool
+}
+
+variable "eks_board_node_role_name" {
   description = "role 이름"
   type        = string
 }
