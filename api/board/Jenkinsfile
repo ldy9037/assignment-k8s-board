@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat
+
 pipeline {
     agent any 
     stages {
@@ -14,8 +16,10 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                sh "datetime=$(date '+%Y%m%d%H%M%S')"
-                sh "echo $datetime"
+                def dateFormat = new SimpleDateFormat("yyMMddHHmmss")
+                def DATETIME = dateFormat.format(new Date())
+
+                sh "echo ${DATETIME}"
             }
         }
     }
