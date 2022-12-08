@@ -1,0 +1,22 @@
+pipeline {
+    agent any 
+    stages {
+        stage('Test') { 
+            steps {
+                sh "./api/board/gradlew check"
+            }
+        }
+        stage('build') { 
+            steps {
+                sh "api/board/gradlew bootBuildImage --imageName=board-api"
+                sh "docker rmi board-api"
+            }
+        }
+        stage('Deploy') { 
+            steps {
+                sh "datetime=$(date '+%Y%m%d%H%M%S')"
+                sh "echo $datetime"
+            }
+        }
+    }
+}
