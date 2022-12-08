@@ -16,9 +16,11 @@ pipeline {
         }
         stage('Deploy') { 
             steps {
-                def dateFormat = new SimpleDateFormat("yyMMddHHmmss")
-                def DATETIME = dateFormat.format(new Date())
-
+                script {
+                    def dateFormat = new SimpleDateFormat("yyMMddHHmmss")
+                    def DATETIME = dateFormat.format(new Date())
+                }
+                
                 sh "echo ${DATETIME}"
             }
         }
