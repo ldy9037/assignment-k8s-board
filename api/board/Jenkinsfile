@@ -5,13 +5,17 @@ pipeline {
     stages {
         stage('Test') { 
             steps {
-                sh "./api/board/gradlew check"
+                dir("api/board") {
+                    sh "./gradlew check"
+                }
             }
         }
         stage('build') { 
             steps {
-                sh "api/board/gradlew bootBuildImage --imageName=board-api"
-                sh "docker rmi board-api"
+                dir("api/board") {
+                    sh "api/board/gradlew bootBuildImage --imageName=board-api"
+                    sh "docker rmi board-api"
+                }
             }
         }
         stage('Deploy') { 
