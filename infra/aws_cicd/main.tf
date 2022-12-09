@@ -105,10 +105,14 @@ module "ec2_jenkins" {
   ]
 }
 
+resource "aws_eip" "eip_jenkins" {
+  instance = module.ec2_jenkins[0].id
+}
+
 resource "aws_route53_record" "record" {
   zone_id = values(data.tfe_outputs.dns_output.values.route53_zones_id)[0]
   name    = var.ec2_jenkins_name
   type    = var.route53_record_type
   ttl     = var.route53_record_ttl
-  records = [module.ec2_jenkins[0].public_ip]
+  records = [aws_eip.eip_jenkins.public_ip]
 }
