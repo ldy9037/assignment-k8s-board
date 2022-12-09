@@ -87,8 +87,3 @@ variable "eks_board_cluster_version" {
   description = "EKS Cluster 버전"
   type        = string
 }
-
-variable "eks_board_cluster_endpoint_public_access" {
-  description = "EKS Cluster endpoint 퍼블릭 액세스 여부"
-  type        = bool
-}

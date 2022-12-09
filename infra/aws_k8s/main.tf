@@ -63,6 +63,21 @@ data "aws_iam_policy_document" "eks_role_trust_policy" {
   }
 }
 
+data "aws_iam_policy_document" "eks_node_role_trust_policy" {
+  statement {
+    actions = [
+      "sts:AssumeRole",
+    ]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ec2.amazonaws.com"]
+    }
+
+    effect = "Allow"
+  }
+}
+
 module "eks_board_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
   version = "5.9.1"
@@ -85,7 +100,7 @@ module "eks_board_node_role" {
 
   role_name = var.eks_board_node_role_name
 
-  custom_role_trust_policy = data.aws_iam_policy_document.eks_role_trust_policy.json
+  custom_role_trust_policy = data.aws_iam_policy_document.eks_node_role_trust_policy.json
   custom_role_policy_arns  = [for eks_node_policy in data.aws_iam_policy.iam_policy_eks_node : eks_node_policy.arn]
 }
 
@@ -100,31 +115,33 @@ module "ecr_board" {
   })
 }
 
-module "eks_board" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "19.0.4"
+resource "aws_eks_cluster" "eks_cluster_board" {
+  name     = var.eks_board_cluster_name
+  role_arn = module.eks_board_role.iam_role_arn
+  version  = var.eks_board_cluster_version
 
-  cluster_name    = var.eks_board_cluster_name
-  cluster_version = var.eks_board_cluster_version
-
-  cluster_endpoint_public_access = var.eks_board_cluster_endpoint_public_access
-
-  vpc_id     = data.tfe_outputs.network_output.values.vpc_id
-  subnet_ids = data.tfe_outputs.network_output.values.private_subnets
-
-  iam_role_arn = module.eks_board_role.iam_role_arn
-
-  eks_managed_node_groups = {
-    complete = {
-      name = "board-node-group"
-
-      min_size = 1
-      max_size = 2
-
-      ami_id         = "ami-06eea3cd85e2db8ce"
-      instance_types = ["t2.micro"]
-
-      iam_role_arn = module.eks_board_node_role.iam_role_arn
-    }
+  vpc_config {
+    subnet_ids = data.tfe_outputs.network_output.values.private_subnets
   }
+
+  depends_on = [
+    module.eks_board_role
+  ]
+}
+
+resource "aws_eks_node_group" "eks_node_group_board" {
+  cluster_name    = aws_eks_cluster.eks_cluster_board.name
+  node_group_name = "board-node-group"
+  node_role_arn   = module.eks_board_node_role.iam_role_arn
+  subnet_ids      = data.tfe_outputs.network_output.values.private_subnets
+
+  scaling_config {
+    desired_size = 1
+    max_size     = 2
+    min_size     = 1
+  }
+
+  depends_on = [
+    module.eks_board_node_role
+  ]
 }

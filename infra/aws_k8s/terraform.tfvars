@@ -28,6 +28,5 @@ eks_board_role_create_role = true
 eks_board_node_role_name        = "BoardEKSNodeRole"
 eks_board_node_role_create_role = true
 
-eks_board_cluster_name                   = "board-cluster"
-eks_board_cluster_version                = "1.23"
-eks_board_cluster_endpoint_public_access = true
+eks_board_cluster_name    = "board-cluster"
+eks_board_cluster_version = "1.23"
