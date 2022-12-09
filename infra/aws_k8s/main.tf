@@ -131,17 +131,33 @@ resource "aws_eks_cluster" "eks_cluster_board" {
 
 resource "aws_eks_node_group" "eks_node_group_board" {
   cluster_name    = aws_eks_cluster.eks_cluster_board.name
-  node_group_name = "board-node-group"
+  node_group_name = var.node_group_board_name
   node_role_arn   = module.eks_board_node_role.iam_role_arn
   subnet_ids      = data.tfe_outputs.network_output.values.private_subnets
 
+  launch_template {
+    id      = aws_launch_template.launch_template_board.id
+    version = var.node_group_board_lt_version
+  }
+
   scaling_config {
-    desired_size = 1
-    max_size     = 2
-    min_size     = 1
+    desired_size = var.node_group_board_sc_desired_size
+    max_size     = var.node_group_board_sc_max_size
+    min_size     = var.node_group_board_sc_min_size
   }
 
   depends_on = [
     module.eks_board_node_role
   ]
+}
+
+resource "aws_launch_template" "launch_template_board" {
+  name = var.launch_template_board_name
+
+  image_id      = var.launch_template_board_image_id
+  instance_type = var.launch_template_board_instance_type
+
+  network_interfaces {
+    associate_public_ip_address = var.launch_template_board_ni_public_ip
+  }
 }

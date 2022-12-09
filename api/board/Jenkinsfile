@@ -13,7 +13,7 @@ pipeline {
         stage('build') { 
             steps {
                 dir("api/board") {
-                    sh "api/board/gradlew bootBuildImage --imageName=board-api"
+                    sh "./gradlew bootBuildImage --imageName=board-api"
                     sh "docker rmi board-api"
                 }
             }
