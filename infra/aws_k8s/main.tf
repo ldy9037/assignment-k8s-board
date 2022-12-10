@@ -48,6 +48,21 @@ data "aws_iam_policy" "iam_policy_eks_node" {
   name  = var.iam_policy_eks_node_names[count.index]
 }
 
+data "aws_iam_policy_document" "ssm_role_trust_policy" {
+  statement {
+    actions = [
+      "sts:AssumeRole",
+    ]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ssm.amazonaws.com"]
+    }
+
+    effect = "Allow"
+  }
+}
+
 data "aws_iam_policy_document" "eks_role_trust_policy" {
   statement {
     actions = [
@@ -76,6 +91,55 @@ data "aws_iam_policy_document" "eks_node_role_trust_policy" {
 
     effect = "Allow"
   }
+}
+
+module "eks_connector_agent_policy" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
+  version = "5.1.0"
+
+  name        = var.eks_connector_agent_policy_name
+  path        = var.eks_connector_agent_policy_path
+  description = var.eks_connector_agent_policy_description
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "SsmControlChannel",
+            "Effect": "Allow",
+            "Action": [
+                "ssmmessages:CreateControlChannel"
+            ],
+            "Resource": "arn:aws:eks:*:*:cluster/*"
+        },
+        {
+            "Sid": "ssmDataplaneOperations",
+            "Effect": "Allow",
+            "Action": [
+                "ssmmessages:CreateDataChannel",
+                "ssmmessages:OpenDataChannel",
+                "ssmmessages:OpenControlChannel"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+EOF
+}
+
+module "eks_connector_agent_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+  version = "5.9.1"
+
+  create_role = var.eks_connector_agent_role_create_role
+
+  role_name = var.eks_connector_agent_role_name
+
+  custom_role_trust_policy = data.aws_iam_policy_document.ssm_role_trust_policy.json
+  custom_role_policy_arns = [
+    module.eks_connector_agent_policy.arn
+  ]
 }
 
 module "eks_board_role" {

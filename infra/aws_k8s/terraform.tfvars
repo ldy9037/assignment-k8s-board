@@ -23,6 +23,13 @@ iam_policy_eks_node_names = [
   "AmazonEKS_CNI_Policy"
 ]
 
+eks_connector_agent_policy_name        = "AmazonEKSConnectorAgentPolicy"
+eks_connector_agent_policy_path        = "/"
+eks_connector_agent_policy_description = ""
+
+eks_connector_agent_role_name        = "AmazonEKSConnectorAgentRole"
+eks_connector_agent_role_create_role = true
+
 eks_board_role_name        = "BoardEKSClusterRole"
 eks_board_role_create_role = true
 

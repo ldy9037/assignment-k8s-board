@@ -137,3 +137,28 @@ variable "node_group_board_instance_types" {
   description = "node group 내 node의 instance type"
   type        = list(string)
 }
+
+variable "eks_connector_agent_policy_name" {
+  description = "EKS Connector agent 정책 명"
+  type        = string
+}
+
+variable "eks_connector_agent_policy_path" {
+  description = "EKS Connector agent 정책 경로"
+  type        = string
+}
+
+variable "eks_connector_agent_policy_description" {
+  description = "EKS Connector agent 정책 설명"
+  type        = string
+}
+
+variable "eks_connector_agent_role_create_role" {
+  description = "EKS Connector agent role 생성 여부"
+  type        = string
+}
+
+variable "eks_connector_agent_role_name" {
+  description = "EKS Connector agent role 명"
+  type        = string
+}
