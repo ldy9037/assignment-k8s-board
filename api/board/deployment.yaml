@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: board-deployment
+  namespace: board
+  labels:
+    app: board-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: board-app
+  template:
+    metadata:
+      labels:
+        app: board-app
+    spec:
+      containers:
+      - name: nginx
+        image: 901371017570.dkr.ecr.ap-northeast-2.amazonaws.com/board-api:latest
+        ports:
+        - name: http
+          containerPort: 8080
+        imagePullPolicy: IfNotPresent
+      nodeSelector:
+        kubernetes.io/os: linux
