@@ -32,7 +32,7 @@ eks_board_cluster_name    = "board-cluster"
 eks_board_cluster_version = "1.23"
 
 node_group_board_name            = "board-node-group"
-node_group_board_lt_version      = "latest_version"
+node_group_board_lt_version      = "$Latest"
 node_group_board_sc_desired_size = 1
 node_group_board_sc_min_size     = 1
 node_group_board_sc_max_size     = 2
