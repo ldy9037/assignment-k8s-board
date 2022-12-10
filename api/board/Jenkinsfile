@@ -28,7 +28,12 @@ pipeline {
                         docker.image("${ECR_URI}/${IMAGE_NAME}:latest").push()
                     }
                     
-                    sh "docker rmi -f $(docker images -f 'dangling=true' -q)"
+                    NONE_NAME_IMAGES = sh (
+                        script: 'docker images -f "dangling=true" -q'
+                        returnStdout: true
+                    ).trim()
+
+                    sh "docker rmi -f ${NONE_NAME_IMAGES}"
                 }
             }
         }
