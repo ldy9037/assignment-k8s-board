@@ -1,7 +1,10 @@
-import java.text.SimpleDateFormat
-
 pipeline {
     agent any 
+    environment {
+        ECR_URI = "901371017570.dkr.ecr.ap-northeast-2.amazonaws.com"
+        IMAGE_NAME = "board-api"
+        CREDENTIAL_ID = "1b85d2e9-4998-441a-9bac-da9a927e6720"
+    }
     stages {
         stage('Test') { 
             steps {
@@ -13,19 +16,25 @@ pipeline {
         stage('build') { 
             steps {
                 dir("api/board") {
-                    sh "./gradlew bootBuildImage --imageName=board-api"
-                    sh "docker rmi board-api"
+                    sh "./gradlew bootBuildImage --imageName=${IMAGE_NAME}"
+                    sh "docker tag ${IMAGE_NAME}:latest ${ECR_URI}/${IMAGE_NAME}:latest"
+                }
+            }
+
+            steps {
+                dir("api/board") {
+                    docker.withRegistry("https://${ECR_URI}","${CREDENTIAL_ID}") {
+                        docker.image("${ECR_URI}/${IMAGE_NAME}:${BUILD_NUMBER}").push()
+                        docker.image("${ECR_URI}/${IMAGE_NAME}:latest").push()
+                    }
+                    
+                    sh "docker rmi -f $(docker images -f 'dangling=true' -q)"
                 }
             }
         }
         stage('Deploy') { 
             steps {
-                script {
-                    def dateFormat = new SimpleDateFormat("yyMMddHHmmss")
-                    def DATETIME = dateFormat.format(new Date())
-                }
                 
-                sh "echo ${DATETIME}"
             }
         }
     }
