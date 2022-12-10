@@ -19,7 +19,7 @@ pipeline {
                 dir("api/board") {
                     script {
                         ECR_IMAGE_NAME = sh (
-                            script: "echo ${ECR_URI}/${IMAGE_NAME}"
+                            script: "echo ${ECR_URI}/${IMAGE_NAME}",
                             returnStdout: true
                         ).trim()
                     }
