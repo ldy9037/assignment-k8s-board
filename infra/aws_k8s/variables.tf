@@ -162,3 +162,18 @@ variable "eks_connector_agent_role_name" {
   description = "EKS Connector agent role 명"
   type        = string
 }
+
+variable "eks_alb_controller_policy_name" {
+  description = "EKS ALB Controller 정책 명"
+  type        = string
+}
+
+variable "eks_alb_controller_policy_path" {
+  description = "EKS ALB Controller 정책 경로"
+  type        = string
+}
+
+variable "eks_alb_controller_policy_description" {
+  description = "EKS ALB Controller 정책 설명"
+  type        = string
+}

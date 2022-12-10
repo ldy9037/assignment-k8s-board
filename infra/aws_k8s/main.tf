@@ -29,6 +29,10 @@ provider "aws" {
   }
 }
 
+locals {
+  eks_board_node_role_policy_arns = [for eks_node_policy in data.aws_iam_policy.iam_policy_eks_node : eks_node_policy.arn]
+}
+
 data "tfe_outputs" "network_output" {
   organization = var.organization_name
   workspace    = var.network_workspace_name
@@ -93,6 +97,15 @@ data "aws_iam_policy_document" "eks_node_role_trust_policy" {
   }
 }
 
+data "http" "eks_alb_controller_policy_json" {
+  url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json"
+
+  request_headers = {
+    Accept = "application/json"
+  }
+}
+
+
 module "eks_connector_agent_policy" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.1.0"
@@ -126,6 +139,17 @@ module "eks_connector_agent_policy" {
     ]
 }
 EOF
+}
+
+module "eks_alb_controller_policy" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
+  version = "5.1.0"
+
+  name        = var.eks_alb_controller_policy_name
+  path        = var.eks_alb_controller_policy_path
+  description = var.eks_alb_controller_policy_description
+
+  policy = data.http.eks_alb_controller_policy_json.response_body
 }
 
 module "eks_connector_agent_role" {
@@ -165,7 +189,7 @@ module "eks_board_node_role" {
   role_name = var.eks_board_node_role_name
 
   custom_role_trust_policy = data.aws_iam_policy_document.eks_node_role_trust_policy.json
-  custom_role_policy_arns  = [for eks_node_policy in data.aws_iam_policy.iam_policy_eks_node : eks_node_policy.arn]
+  custom_role_policy_arns  = concat(local.eks_board_node_role_policy_arns, [module.eks_alb_controller_policy.arn])
 }
 
 module "ecr_board" {

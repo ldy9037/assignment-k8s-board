@@ -30,6 +30,10 @@ eks_connector_agent_policy_description = ""
 eks_connector_agent_role_name        = "AmazonEKSConnectorAgentRole"
 eks_connector_agent_role_create_role = true
 
+eks_alb_controller_policy_name        = "AmazonALBControllerPolicy"
+eks_alb_controller_policy_path        = "/"
+eks_alb_controller_policy_description = ""
+
 eks_board_role_name        = "BoardEKSClusterRole"
 eks_board_role_create_role = true
 
