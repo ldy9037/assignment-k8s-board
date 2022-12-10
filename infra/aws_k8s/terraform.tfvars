@@ -1,4 +1,5 @@
 ecr_board_repository_name = "board-api"
+ecr_board_repository_image_tag_mutability = "MUTABLE"
 ecr_board_repository_lifecycle_policy = [
   {
     rulePriority = 1,

@@ -109,7 +109,7 @@ module "ecr_board" {
   version = "1.5.1"
 
   repository_name = var.ecr_board_repository_name
-
+  repository_image_tag_mutability = var.ecr_board_repository_image_tag_mutability
   repository_lifecycle_policy = jsonencode({
     rules = var.ecr_board_repository_lifecycle_policy
   })

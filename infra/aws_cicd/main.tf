@@ -39,13 +39,13 @@ data "tfe_outputs" "dns_output" {
   workspace    = var.dns_workspace_name
 }
 
-module "jenkins_s3_policy" {
+module "jenkins_deploy_policy" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.1.0"
 
-  name        = var.jenkins_s3_policy_name
-  path        = var.jenkins_s3_policy_path
-  description = var.jenkins_s3_policy_description
+  name        = var.jenkins_deploy_policy_name
+  path        = var.jenkins_deploy_policy_path
+  description = var.jenkins_deploy_policy_description
 
   policy = <<EOF
 {
@@ -56,10 +56,19 @@ module "jenkins_s3_policy" {
         "s3:PutObject",
         "s3:DeleteObject",
         "s3:GetObject",
-        "s3:ListBucket"
+        "s3:ListBucket",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:CompleteLayerUpload",
+        "ecr:GetAuthorizationToken",
+        "ecr:InitiateLayerUpload",
+        "ecr:PutImage",
+        "ecr:UploadLayerPart"
       ],
       "Effect": "Allow",
-      "Resource": "arn:aws:s3:::*"
+      "Resource": [
+        "arn:aws:s3:::*",
+        "arn:aws:ecr:::*"
+      ]
     }
   ]
 }
@@ -82,7 +91,7 @@ module "iam_group_jenkins" {
   name = var.iam_group_jenkins_name
 
   create_group             = var.iam_group_jenkins_create_group
-  custom_group_policy_arns = [module.jenkins_s3_policy.arn]
+  custom_group_policy_arns = [module.jenkins_deploy_policy.arn]
   group_users              = [module.iam_user_jenkins.iam_user_name]
 }
 

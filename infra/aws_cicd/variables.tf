@@ -83,18 +83,18 @@ variable "iam_group_jenkins_create_group" {
   type        = bool
 }
 
-variable "jenkins_s3_policy_name" {
-  description = "Jenkins 용 s3 policy 이름"
+variable "jenkins_deploy_policy_name" {
+  description = "Jenkins 용 deploy policy 이름"
   type        = string
 }
 
-variable "jenkins_s3_policy_path" {
-  description = "Jenkins 용 s3 policy path"
+variable "jenkins_deploy_policy_path" {
+  description = "Jenkins 용 deploy policy path"
   type        = string
 }
 
-variable "jenkins_s3_policy_description" {
-  description = "Jenkins 용 s3 policy 설명"
+variable "jenkins_deploy_policy_description" {
+  description = "Jenkins 용 deploy policy 설명"
   type        = string
 }
 

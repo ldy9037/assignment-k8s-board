@@ -43,6 +43,11 @@ variable "ecr_board_repository_name" {
   type        = string
 }
 
+variable "ecr_board_repository_image_tag_mutability" {
+  description = "태그 변경 가능 여부"
+  type = string
+}
+
 variable "ecr_board_repository_lifecycle_policy" {
   description = "board api 용 ECR lifecycle 정책"
   type        = list(any)
