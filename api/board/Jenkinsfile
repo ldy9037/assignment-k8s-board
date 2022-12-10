@@ -41,9 +41,8 @@ pipeline {
             steps {
                 dir("api/board") {
                     withAWS(region:"${REGION}",credentials:"${CREDENTIAL_ID}") {
-                        sh "aws eks update-kubeconfig --region ${REGION} --name ${CLUSTER}"
-                        sh 'kubectl apply -f deployment.yaml'
-                        sh 'kubectl apply -f service.yaml'
+                        sh "kubectl apply -f deployment.yaml --context ${CLUSTER}"
+                        sh "kubectl apply -f service.yaml --context ${CLUSTER}"
                     }
                 }
             }
