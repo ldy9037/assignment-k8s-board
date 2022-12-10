@@ -29,7 +29,7 @@ pipeline {
                     }
                     
                     NONE_NAME_IMAGES = sh (
-                        script: 'docker images -f "dangling=true" -q'
+                        script: 'docker images -f "dangling=true" -q',
                         returnStdout: true
                     ).trim()
 
