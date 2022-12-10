@@ -45,7 +45,7 @@ variable "ecr_board_repository_name" {
 
 variable "ecr_board_repository_image_tag_mutability" {
   description = "태그 변경 가능 여부"
-  type = string
+  type        = string
 }
 
 variable "ecr_board_repository_lifecycle_policy" {
@@ -118,22 +118,22 @@ variable "node_group_board_sc_max_size" {
   type        = number
 }
 
-variable "launch_template_board_name" {
-  description = "launch template 명"
+variable "node_group_board_ami_type" {
+  description = "node group 내 node의 AMI type"
   type        = string
 }
 
-variable "launch_template_board_image_id" {
-  description = "launch template AMI"
+variable "node_group_board_capacity_type" {
+  description = "node group 내 node의 capacity type"
   type        = string
 }
 
-variable "launch_template_board_instance_type" {
-  description = "launch template 인스턴스 타입"
-  type        = string
+variable "node_group_board_disk_size" {
+  description = "node group 내 node의 disk size"
+  type        = number
 }
 
-variable "launch_template_board_ni_public_ip" {
-  description = "Public IP를 네트워크 인터페이스와 연결할 것인지 여부"
-  type        = bool
+variable "node_group_board_instance_types" {
+  description = "node group 내 node의 instance type"
+  type        = list(string)
 }

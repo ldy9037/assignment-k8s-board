@@ -108,7 +108,7 @@ module "ecr_board" {
   source  = "terraform-aws-modules/ecr/aws"
   version = "1.5.1"
 
-  repository_name = var.ecr_board_repository_name
+  repository_name                 = var.ecr_board_repository_name
   repository_image_tag_mutability = var.ecr_board_repository_image_tag_mutability
   repository_lifecycle_policy = jsonencode({
     rules = var.ecr_board_repository_lifecycle_policy
@@ -135,10 +135,10 @@ resource "aws_eks_node_group" "eks_node_group_board" {
   node_role_arn   = module.eks_board_node_role.iam_role_arn
   subnet_ids      = data.tfe_outputs.network_output.values.private_subnets
 
-  launch_template {
-    id      = aws_launch_template.launch_template_board.id
-    version = var.node_group_board_lt_version
-  }
+  ami_type       = var.node_group_board_ami_type
+  capacity_type  = var.node_group_board_capacity_type
+  disk_size      = var.node_group_board_disk_size
+  instance_types = var.node_group_board_instance_types
 
   scaling_config {
     desired_size = var.node_group_board_sc_desired_size
@@ -149,15 +149,4 @@ resource "aws_eks_node_group" "eks_node_group_board" {
   depends_on = [
     module.eks_board_node_role
   ]
-}
-
-resource "aws_launch_template" "launch_template_board" {
-  name = var.launch_template_board_name
-
-  image_id      = var.launch_template_board_image_id
-  instance_type = var.launch_template_board_instance_type
-
-  network_interfaces {
-    associate_public_ip_address = var.launch_template_board_ni_public_ip
-  }
 }

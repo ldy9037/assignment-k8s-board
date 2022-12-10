@@ -1,4 +1,4 @@
-ecr_board_repository_name = "board-api"
+ecr_board_repository_name                 = "board-api"
 ecr_board_repository_image_tag_mutability = "MUTABLE"
 ecr_board_repository_lifecycle_policy = [
   {
@@ -37,8 +37,7 @@ node_group_board_lt_version      = "$Latest"
 node_group_board_sc_desired_size = 1
 node_group_board_sc_min_size     = 1
 node_group_board_sc_max_size     = 2
-
-launch_template_board_name          = "board_launch_template"
-launch_template_board_image_id      = "ami-0ab04b3ccbadfae1f"
-launch_template_board_instance_type = "t3.small"
-launch_template_board_ni_public_ip  = false
+node_group_board_ami_type        = "AL2_x86_64"
+node_group_board_capacity_type   = "ON_DEMAND"
+node_group_board_disk_size       = 20
+node_group_board_instance_types  = ["t3.medium"]
