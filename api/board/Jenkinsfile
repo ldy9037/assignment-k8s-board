@@ -18,16 +18,18 @@ pipeline {
                 dir("api/board") {
                     sh "./gradlew bootBuildImage --imageName=${IMAGE_NAME}"
                     sh "docker tag ${IMAGE_NAME}:latest ${ECR_URI}/${IMAGE_NAME}:latest"
-                    
-                    docker.withRegistry("https://${ECR_URI}","${CREDENTIAL_ID}") {
-                        docker.image("${ECR_URI}/${IMAGE_NAME}:${BUILD_NUMBER}").push()
-                        docker.image("${ECR_URI}/${IMAGE_NAME}:latest").push()
+
+                    script {
+                        docker.withRegistry("https://${ECR_URI}","${CREDENTIAL_ID}") {
+                            docker.image("${ECR_URI}/${IMAGE_NAME}:${BUILD_NUMBER}").push()
+                            docker.image("${ECR_URI}/${IMAGE_NAME}:latest").push()
+                        }
+                        
+                        NONE_NAME_IMAGES = sh (
+                            script: 'docker images -f "dangling=true" -q',
+                            returnStdout: true
+                        ).trim()
                     }
-                    
-                    NONE_NAME_IMAGES = sh (
-                        script: 'docker images -f "dangling=true" -q',
-                        returnStdout: true
-                    ).trim()
 
                     sh "docker rmi -f ${NONE_NAME_IMAGES}"
                 }
