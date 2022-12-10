@@ -17,13 +17,20 @@ pipeline {
         stage('build') { 
             steps {
                 dir("api/board") {
-                    sh "./gradlew bootBuildImage --imageName=${IMAGE_NAME}"
-                    sh "docker tag ${IMAGE_NAME}:latest ${ECR_URI}/${IMAGE_NAME}:latest"
+                    script {
+                        ECR_IMAGE_NAME = sh (
+                            script: "echo ${ECR_URI}/${IMAGE_NAME}"
+                            returnStdout: true
+                        ).trim()
+                    }
+
+                    sh "./gradlew bootBuildImage --imageName=${ECR_IMAGE_NAME}:${BUILD_NUMBER}"
+                    sh "docker tag ${ECR_IMAGE_NAME}:${BUILD_NUMBER} ${ECR_IMAGE_NAME}:latest"
 
                     script {
                         docker.withRegistry("https://${ECR_URI}","ecr:${REGION}:${CREDENTIAL_ID}") {
-                            docker.image("${ECR_URI}/${IMAGE_NAME}:${BUILD_NUMBER}").push()
-                            docker.image("${ECR_URI}/${IMAGE_NAME}:latest").push()
+                            docker.image("${ECR_IMAGE_NAME}:${BUILD_NUMBER}").push()
+                            docker.image("${ECR_IMAGE_NAME}:latest").push()
                         }
                         
                         NONE_NAME_IMAGES = sh (
