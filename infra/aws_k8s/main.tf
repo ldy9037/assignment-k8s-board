@@ -29,10 +29,6 @@ provider "aws" {
   }
 }
 
-locals {
-  eks_board_node_role_policy_arns = [for eks_node_policy in data.aws_iam_policy.iam_policy_eks_node : eks_node_policy.arn]
-}
-
 data "tfe_outputs" "network_output" {
   organization = var.organization_name
   workspace    = var.network_workspace_name
@@ -189,7 +185,7 @@ module "eks_board_node_role" {
   role_name = var.eks_board_node_role_name
 
   custom_role_trust_policy = data.aws_iam_policy_document.eks_node_role_trust_policy.json
-  custom_role_policy_arns  = concat(local.eks_board_node_role_policy_arns, [module.eks_alb_controller_policy.arn])
+  custom_role_policy_arns  = [for eks_node_policy in data.aws_iam_policy.iam_policy_eks_node : eks_node_policy.arn]
 }
 
 module "ecr_board" {
