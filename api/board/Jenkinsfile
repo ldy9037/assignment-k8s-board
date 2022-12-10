@@ -18,11 +18,7 @@ pipeline {
                 dir("api/board") {
                     sh "./gradlew bootBuildImage --imageName=${IMAGE_NAME}"
                     sh "docker tag ${IMAGE_NAME}:latest ${ECR_URI}/${IMAGE_NAME}:latest"
-                }
-            }
-
-            steps {
-                dir("api/board") {
+                    
                     docker.withRegistry("https://${ECR_URI}","${CREDENTIAL_ID}") {
                         docker.image("${ECR_URI}/${IMAGE_NAME}:${BUILD_NUMBER}").push()
                         docker.image("${ECR_URI}/${IMAGE_NAME}:latest").push()
