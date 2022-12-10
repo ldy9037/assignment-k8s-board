@@ -28,6 +28,11 @@ variable "organization_name" {
   type        = string
 }
 
+variable "aws_account_id" {
+  description = "AWS Account ID"
+  type        = string
+}
+
 variable "network_workspace_name" {
   description = "Network workspace name"
   type        = string
@@ -175,5 +180,20 @@ variable "eks_alb_controller_policy_path" {
 
 variable "eks_alb_controller_policy_description" {
   description = "EKS ALB Controller 정책 설명"
+  type        = string
+}
+
+variable "eks_board_cluster_oicd_id" {
+  description = "Cluster OICD URL의 ID"
+  type        = string
+}
+
+variable "eks_alb_controller_role_create_role" {
+  description = "EKS ALB Controller role 생성 여부"
+  type        = bool
+}
+
+variable "eks_alb_controller_role_name" {
+  description = "EKS ALB Controller role 명"
   type        = string
 }

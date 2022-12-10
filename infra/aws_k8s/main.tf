@@ -93,6 +93,33 @@ data "aws_iam_policy_document" "eks_node_role_trust_policy" {
   }
 }
 
+data "aws_iam_policy_document" "eks_alb_controller_trust_policy" {
+  statement {
+    actions = [
+      "sts:AssumeRoleWithWebIdentity"
+    ]
+
+    principals {
+      type        = "Federated"
+      identifiers = ["arn:aws:iam::${var.aws_account_id}:oidc-provider/oidc.eks.${var.region}.amazonaws.com/id/${var.eks_board_cluster_oicd_id}"]
+    }
+
+    effect = "Allow"
+
+    condition {
+      test     = "StringEquals"
+      variable = "oidc.eks.${var.region}.amazonaws.com/id/${var.eks_board_cluster_oicd_id}:aud"
+      values   = ["sts.amazonaws.com"]
+    }
+
+    condition {
+      test     = "StringEquals"
+      variable = "oidc.eks.${var.region}.amazonaws.com/id/${var.eks_board_cluster_oicd_id}:sub"
+      values   = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
+    }
+  }
+}
+
 data "http" "eks_alb_controller_policy_json" {
   url = "https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json"
 
@@ -100,7 +127,6 @@ data "http" "eks_alb_controller_policy_json" {
     Accept = "application/json"
   }
 }
-
 
 module "eks_connector_agent_policy" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
@@ -186,6 +212,18 @@ module "eks_board_node_role" {
 
   custom_role_trust_policy = data.aws_iam_policy_document.eks_node_role_trust_policy.json
   custom_role_policy_arns  = [for eks_node_policy in data.aws_iam_policy.iam_policy_eks_node : eks_node_policy.arn]
+}
+
+module "eks_alb_controller_role" {
+  source  = "terraform-aws-modules/iam/aws//modules/iam-assumable-role"
+  version = "5.9.1"
+
+  create_role = var.eks_alb_controller_role_create_role
+
+  role_name = var.eks_alb_controller_role_name
+
+  custom_role_trust_policy = data.aws_iam_policy_document.eks_alb_controller_trust_policy.json
+  custom_role_policy_arns  = [module.eks_alb_controller_policy.arn]
 }
 
 module "ecr_board" {

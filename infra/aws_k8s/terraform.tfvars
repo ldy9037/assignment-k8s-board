@@ -40,8 +40,12 @@ eks_board_role_create_role = true
 eks_board_node_role_name        = "BoardEKSNodeRole"
 eks_board_node_role_create_role = true
 
+eks_alb_controller_role_name        = "AmazonEKSALBControllerRole"
+eks_alb_controller_role_create_role = true
+
 eks_board_cluster_name    = "board-cluster"
 eks_board_cluster_version = "1.23"
+eks_board_cluster_oicd_id = "EXAMPLED539D4633E53DE1B71EXAMPLE"
 
 node_group_board_name            = "board-node-group"
 node_group_board_lt_version      = "$Latest"
