@@ -18,6 +18,6 @@ spec:
       containers:
       - name: board-api
         image: 901371017570.dkr.ecr.ap-northeast-2.amazonaws.com/board-api:latest
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8080
