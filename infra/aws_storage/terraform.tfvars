@@ -13,3 +13,6 @@ static_contents_website_routing_rules = [{
 route53_record_name = "board"
 route53_record_type = "CNAME"
 route53_record_ttl  = 300
+
+static_contents_acm_create = true
+static_contents_acm_wfv    = true

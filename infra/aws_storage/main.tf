@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.11.0"
+      version = ">= 4.5.0"
     }
   }
 
@@ -74,4 +74,15 @@ resource "aws_route53_record" "static_content_record" {
   type    = var.route53_record_type
   ttl     = var.route53_record_ttl
   records = [module.s3_static_contents.s3_bucket_website_endpoint]
+}
+
+module "static_contents_acm" {
+  source  = "terraform-aws-modules/acm/aws"
+  version = "4.3.1"
+
+  domain_name = "${aws_route53_record.static_content_record.name}.${values(data.tfe_outputs.dns_output.values.route53_zones_name)[0]}"
+  zone_id     = values(data.tfe_outputs.dns_output.values.route53_zones_id)[0]
+
+  create_route53_records = var.static_contents_acm_create
+  wait_for_validation    = var.static_contents_acm_wfv
 }

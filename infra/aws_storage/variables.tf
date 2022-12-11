@@ -67,3 +67,13 @@ variable "route53_record_ttl" {
   description = "Record TTL"
   type        = number
 }
+
+variable "static_contents_acm_create" {
+  description = "인증서 생성 여부"
+  type        = bool
+}
+
+variable "static_contents_acm_wfv" {
+  description = "인증서 생성 여부"
+  type        = bool
+}
