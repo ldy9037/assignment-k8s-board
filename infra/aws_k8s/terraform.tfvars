@@ -45,7 +45,7 @@ eks_alb_controller_role_create_role = true
 
 eks_board_cluster_name    = "board-cluster"
 eks_board_cluster_version = "1.23"
-eks_board_cluster_oicd_id = "EXAMPLED539D4633E53DE1B71EXAMPLE"
+eks_board_cluster_oicd_id = "DD2934CE233BD10BE04D32E1F2DC9E01"
 
 node_group_board_name            = "board-node-group"
 node_group_board_lt_version      = "$Latest"
