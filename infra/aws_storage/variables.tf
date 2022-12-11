@@ -68,6 +68,11 @@ variable "route53_record_ttl" {
   type        = number
 }
 
+variable "route53_record_records" {
+  description = "Record 값"
+  type        = list(string)
+}
+
 variable "static_contents_acm_create" {
   description = "인증서 생성 여부"
   type        = bool

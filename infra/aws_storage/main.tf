@@ -73,15 +73,13 @@ module "s3_static_contents" {
   }
 }
 
-/*
 resource "aws_route53_record" "static_content_record" {
   zone_id = values(data.tfe_outputs.dns_output.values.route53_zones_id)[0]
   name    = var.route53_record_name
   type    = var.route53_record_type
   ttl     = var.route53_record_ttl
-  records = [aws_cloudfront_distribution.board_cloudfront_distribution.domain_name]
+  records = var.route53_record_records
 }
-*/
 
 module "static_contents_acm" {
   source  = "terraform-aws-modules/acm/aws"
