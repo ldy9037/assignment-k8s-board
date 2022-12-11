@@ -1,86 +1,47 @@
-## Table of Contents
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
-- [소개](#소개)
-- [시작하기](#시작하기)
-- [주의사항](#주의사항)
-- [참고](#참고)
-- [제작자](#제작자)
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.7 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.11.0 |
 
-## 소개
+## Providers
 
- AWS stater package 중 Terraform Backend 설정에 대한 Directory
- 여기서 생성한 S3 Backend에는 tfe Provider로 생성한 Terraform Cloud resource의 상태가 저장됩니다.
- 
- ##### 기술 스택
- - terraform v1.1.7
- - [aws provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
- 
-## 시작하기
-Backend는 초기에 한 번만 설정하면 이후에 다시 설정 할 일이 거의 없습니다.
+No providers.
 
-Terraform state resource 용 환경 변수를 지정합니다. 여기서 지정한 환경변수는 Terraform 변수로도 사용됩니다.    
-[direnv](https://emadam.tistory.com/48)를 사용하면 매번 변수를 export 하지않아도 됩니다. 
-```sh
-export TF_VAR_region=ap-northeast-2
+## Modules
 
-export TF_VAR_organization=<ORGANIZATION>
-export TF_VAR_s3_tfstate_bucket_name=s3-tfstate-management-$TF_VAR_organization
-export TF_VAR_s3_tfstate_bucket_encryt=true
-export TF_VAR_s3_tfstate_bucket_acl=private
-export TF_VAR_s3_tfstate_bucket_key=backend/terraform.tfstate
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_dynamodb_tf_lock_table"></a> [dynamodb\_tf\_lock\_table](#module\_dynamodb\_tf\_lock\_table) | terraform-aws-modules/dynamodb-table/aws | 1.2.2 |
+| <a name="module_s3_log_bucket"></a> [s3\_log\_bucket](#module\_s3\_log\_bucket) | terraform-aws-modules/s3-bucket/aws | 3.1.1 |
+| <a name="module_s3_tfstate_bucket"></a> [s3\_tfstate\_bucket](#module\_s3\_tfstate\_bucket) | terraform-aws-modules/s3-bucket/aws | 3.1.1 |
 
-export TF_VAR_dynamodb_tfstate_lock_table_name=TerraformStateLock
-```
-위 값들은 반드시 환경변수로 설정해주세요. Backend 설정 시 사용됩니다.
+## Resources
 
-ORGANIZATION은 조직/부서 명을 입력해주세요. AWS 계정의 용도를 적어주셔도 좋습니다. 
-이 값은 ep, ot, tc 처럼 부서 이니셜이 될수도 있고 kakao, naver 처럼 회사명이 될 수도 있습니다.
+No resources.
 
-Terraform을 초기화 하고 구성을 적용합니다.
+## Inputs
 
-```sh
-terraform init
-terraform apply
-```
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_dynamodb_tfstate_lock_table_attributes"></a> [dynamodb\_tfstate\_lock\_table\_attributes](#input\_dynamodb\_tfstate\_lock\_table\_attributes) | Dynamodb table의 attributes | <pre>list(object({<br>    name = string<br>    type = string<br>  }))</pre> | n/a | yes |
+| <a name="input_dynamodb_tfstate_lock_table_billing_mode"></a> [dynamodb\_tfstate\_lock\_table\_billing\_mode](#input\_dynamodb\_tfstate\_lock\_table\_billing\_mode) | Dynamodb table의 읽기 및 쓰기에 대한 결제 방식 | `string` | n/a | yes |
+| <a name="input_dynamodb_tfstate_lock_table_hash_key"></a> [dynamodb\_tfstate\_lock\_table\_hash\_key](#input\_dynamodb\_tfstate\_lock\_table\_hash\_key) | Dynamodb table의 hash key | `string` | n/a | yes |
+| <a name="input_dynamodb_tfstate_lock_table_name"></a> [dynamodb\_tfstate\_lock\_table\_name](#input\_dynamodb\_tfstate\_lock\_table\_name) | Dynamodb table 명 | `string` | n/a | yes |
+| <a name="input_dynamodb_tfstate_lock_table_read_capacity"></a> [dynamodb\_tfstate\_lock\_table\_read\_capacity](#input\_dynamodb\_tfstate\_lock\_table\_read\_capacity) | Dynamodb table의 읽기 용량 | `number` | n/a | yes |
+| <a name="input_dynamodb_tfstate_lock_table_write_capacity"></a> [dynamodb\_tfstate\_lock\_table\_write\_capacity](#input\_dynamodb\_tfstate\_lock\_table\_write\_capacity) | Dynamodb table의 쓰기 용량 | `number` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_s3_log_bucket_acl"></a> [s3\_log\_bucket\_acl](#input\_s3\_log\_bucket\_acl) | Log용 S3 Bucket ACL | `string` | n/a | yes |
+| <a name="input_s3_log_bucket_name"></a> [s3\_log\_bucket\_name](#input\_s3\_log\_bucket\_name) | Log용 S3 Bucket 명 | `string` | n/a | yes |
+| <a name="input_s3_tfstate_bucket_acl"></a> [s3\_tfstate\_bucket\_acl](#input\_s3\_tfstate\_bucket\_acl) | State용 S3 Bucket의 ACL | `string` | n/a | yes |
+| <a name="input_s3_tfstate_bucket_force_destroy"></a> [s3\_tfstate\_bucket\_force\_destroy](#input\_s3\_tfstate\_bucket\_force\_destroy) | S3 Bucket에 객체가 존재해도 bucket을 삭제 할 지 여부 | `string` | n/a | yes |
+| <a name="input_s3_tfstate_bucket_logging_target_prefix"></a> [s3\_tfstate\_bucket\_logging\_target\_prefix](#input\_s3\_tfstate\_bucket\_logging\_target\_prefix) | S3 Bucket의 모든 로그 객체 키 접두사 | `string` | n/a | yes |
+| <a name="input_s3_tfstate_bucket_logging_versioning_status"></a> [s3\_tfstate\_bucket\_logging\_versioning\_status](#input\_s3\_tfstate\_bucket\_logging\_versioning\_status) | S3 Bucket 객체의 Versioning 여부 | `string` | n/a | yes |
+| <a name="input_s3_tfstate_bucket_name"></a> [s3\_tfstate\_bucket\_name](#input\_s3\_tfstate\_bucket\_name) | State용 S3 Bucket 명 | `string` | n/a | yes |
 
-구성이 적용됐다면 main.tf로 이동해 아래와 같은 코드 블럭에서 주석을 제거합니다.
-```
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 4.11.0"
-    }
-  }
+## Outputs
 
-  # 이 부분 주석 제거
-  backend "s3" {
-  }
-
-  required_version = ">= 1.1.7"
-}
-...
-```
-
-주석을 제거 했다면 이번엔 위에서 작성한 환경 변수를 사용해 다시 초기화 합니다.  
-초기화 시 Backend 정보로 환경변수들을 사용하며, 중간에 Backend를 s3로 지정할 것이냐고 묻는 메세지가 출력되는데 yes를 입력해서 계속 진행합니다.
-```sh
-terraform init \
--backend-config="bucket=$TF_VAR_s3_tfstate_bucket_name" \
--backend-config="key=$TF_VAR_s3_tfstate_bucket_key" \
--backend-config="region=$TF_VAR_region" \
--backend-config="encrypt=$TF_VAR_s3_tfstate_bucket_encryt" \
--backend-config="acl=$TF_VAR_s3_tfstate_bucket_acl" \
--backend-config="dynamodb_table=$TF_VAR_dynamodb_tfstate_lock_table_name"
-```
-
-## 주의사항
-- Resource를 한 번 생성 후 Backend를 설정하는 이유는 Backend 설정 시 이미 생성되어 있는 S3 저장소를 지정해주어야 하기 때문입니다. 꼭 S3 생성 후 Backend를 지정해주세요.
-
-## 참고
-- [Terraform AWS Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
-- [Terraform Backend Type: S3](https://www.terraform.io/language/settings/backends/s3)
-- [Terraform State 정리](https://emadam.tistory.com/54)
-
-## 제작자
-[ldy9037@naver.com](https://github.com/ldy9037)
+No outputs.
+<!-- END_TF_DOCS -->

@@ -1,146 +1,84 @@
-## Table of Contents
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
-- [소개](#소개)
-- [시작하기](#시작하기)
-- [주의사항](#주의사항)
-- [참고](#참고)
-- [제작자](#제작자)
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.7 |
+| <a name="requirement_tfe"></a> [tfe](#requirement\_tfe) | ~> 0.30.2 |
 
-## 소개
+## Providers
 
- AWS Template 중 Terraform Cloud의 Workspace 설정에 대한 directory
- 이 directory에서 Terraform workspace를 통해 resource들을 적절하게 그룹화하고 환경별로 나눌 수 있습니다.
- 
- ##### 기술 스택
- - terraform v1.1.7
- - [tfe provider](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs)
- 
-## 시작하기
+| Name | Version |
+|------|---------|
+| <a name="provider_tfe"></a> [tfe](#provider\_tfe) | 0.30.2 |
 
-### 초기 실행
-먼저 AWS 계정을 관리하고 있는 담당자에게 액세스 키를 전달 받아야 합니다. 액세스 키는 Access Key ID와 Secret Access Key로 구성되어 있습니다. 지금은 액세스 키를 Variable Set으로 전체 공유하고 있지만 리소스 그룹 별로 관리 조직이 다를 경우 Variable Set 대신 최소 권한을 가진 여러 IAM으로 나눠 각 Terraform Cloud Workspace에 전달할 수 있습니다. 그리고 각 액세스 키는 해당 workspace에서 관리할 Resource들에 대한 권한을 보유하고 있어야 합니다. 
+## Modules
 
-기본 설정되어 있는 알림은 Slack입니다. 여기서 설정하는 알림은 Terraform Cloud Workspace에 작업 시 트리거되는 알림입니다. 
-만약 Slack 말고 다른 알림 채널을 사용하고 싶으시면 [여기](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/notification_configuration)서 가능한 알림 채널 중 하나를 선택해 구성할 수 있습니다.
+No modules.
 
-만약 알림 채널로 slack을 그대로 사용하겠다 하면 아래 문서를 참고해 Slack Webhook URL을 생성합니다.  
-- [Slack Webhook 생성 가이드](https://emadam.tistory.com/53)
+## Resources
 
-이 알림 설정도 모든 workspace에서 같은 slack 채널을 공유하도록 설정되어 있습니다. 만약 workspace 별로 다른 slack 채널로 알림을 전송하고 싶다면 각 채널 별로 webhook URL 생성 후 각각 resource를 생성해 terraform cloud workspace와 연결해주시면 됩니다. 
+| Name | Type |
+|------|------|
+| [tfe_organization.organization](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/organization) | resource |
+| [tfe_organization_membership.organization_membership](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/organization_membership) | resource |
+| [tfe_team_organization_member.team_organization_member](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/team_organization_member) | resource |
+| [tfe_variable.aws_accesskey](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.aws_account_id](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.aws_secret_accesskey](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.cicd_tags_environment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.dns_tags_environment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.dns_workspace_name](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.iam_tags_environment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.k8s_tags_environment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.monitoring_tags_environment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.network_tags_environment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.network_workspace_name](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.organization_name](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.region](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.storage_tags_environment](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.tags_iac](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.tags_owner](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable.tags_team](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable) | resource |
+| [tfe_variable_set.variable_set_global](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/variable_set) | resource |
+| [tfe_workspace.cicd_workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
+| [tfe_workspace.dns_workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
+| [tfe_workspace.iam_workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
+| [tfe_workspace.k8s_workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
+| [tfe_workspace.monitoring_workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
+| [tfe_workspace.network_workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
+| [tfe_workspace.storage_workspace](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/resources/workspace) | resource |
+| [tfe_team.owners](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs/data-sources/team) | data source |
 
-위 설정들이 끝났으면 실행에 필요한 환경 변수를 지정합니다. 여기서 지정한 환경변수는 Terraform 변수로도 사용됩니다.    
-[direnv](https://emadam.tistory.com/48)를 사용하면 매번 변수를 export 하지않아도 됩니다. 
-```sh
-# s3 backend 설정
-export TF_VAR_region=ap-northeast-2 
+## Inputs
 
-export TF_VAR_organization=<ORGANIZATION>
-export TF_VAR_s3_tfstate_bucket_name=s3-tfstate-management-$TF_VAR_organization
-export TF_VAR_s3_tfstate_bucket_encryt=true
-export TF_VAR_s3_tfstate_bucket_acl=private
-export TF_VAR_s3_tfstate_bucket_key=workspace/terraform.tfstate
-export TF_VAR_dynamodb_tfstate_lock_table_name=TerraformStateLock
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_aws_access_key"></a> [aws\_access\_key](#input\_aws\_access\_key) | AWS Access Key | `string` | n/a | yes |
+| <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | AWS Account ID | `string` | n/a | yes |
+| <a name="input_aws_secret_access_key"></a> [aws\_secret\_access\_key](#input\_aws\_secret\_access\_key) | AWS Secret Access Key | `string` | n/a | yes |
+| <a name="input_github_branch"></a> [github\_branch](#input\_github\_branch) | Github branch | `string` | n/a | yes |
+| <a name="input_github_repository"></a> [github\_repository](#input\_github\_repository) | Github Repository 명 | `string` | n/a | yes |
+| <a name="input_github_username"></a> [github\_username](#input\_github\_username) | Github username | `string` | n/a | yes |
+| <a name="input_notification_configuration_destination_type"></a> [notification\_configuration\_destination\_type](#input\_notification\_configuration\_destination\_type) | 알림 채널 | `string` | n/a | yes |
+| <a name="input_notification_configuration_enabled"></a> [notification\_configuration\_enabled](#input\_notification\_configuration\_enabled) | 알림 사용 여부 | `bool` | n/a | yes |
+| <a name="input_notification_configuration_triggers"></a> [notification\_configuration\_triggers](#input\_notification\_configuration\_triggers) | 어떤 이벤트에 trigger 할 것인지 | `list(string)` | n/a | yes |
+| <a name="input_oauth_client_service_provider"></a> [oauth\_client\_service\_provider](#input\_oauth\_client\_service\_provider) | Oauth Client service provider | `string` | n/a | yes |
+| <a name="input_oauth_token_id"></a> [oauth\_token\_id](#input\_oauth\_token\_id) | Oauth Token ID | `string` | n/a | yes |
+| <a name="input_project_env"></a> [project\_env](#input\_project\_env) | 프로젝트 환경 | `map(string)` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_tags_iac"></a> [tags\_iac](#input\_tags\_iac) | Resource에 어떤 IaC를 사용했는지 | `string` | n/a | yes |
+| <a name="input_tags_team"></a> [tags\_team](#input\_tags\_team) | 어느 팀이 관리하고 있는지 | `string` | n/a | yes |
+| <a name="input_tfc_defualt_team_name"></a> [tfc\_defualt\_team\_name](#input\_tfc\_defualt\_team\_name) | Terraform Cloud 기본 생성 팀 | `string` | n/a | yes |
+| <a name="input_tfc_membership"></a> [tfc\_membership](#input\_tfc\_membership) | Terraform Cloud 사용자 | `list(string)` | n/a | yes |
+| <a name="input_tfc_org"></a> [tfc\_org](#input\_tfc\_org) | Teraform Cloud Organization 이름 | `string` | n/a | yes |
+| <a name="input_tfc_owner"></a> [tfc\_owner](#input\_tfc\_owner) | Terraform Cloud Organization 소유자 | `string` | n/a | yes |
+| <a name="input_tfc_terraform_version"></a> [tfc\_terraform\_version](#input\_tfc\_terraform\_version) | Terraform Cloud에서 사용할 Terraform version | `string` | n/a | yes |
+| <a name="input_workspace_name"></a> [workspace\_name](#input\_workspace\_name) | Terraform Cloud Workspace 이름 | `map(any)` | n/a | yes |
+| <a name="input_workspace_working_directory"></a> [workspace\_working\_directory](#input\_workspace\_working\_directory) | Terraform Cloud working directory | `map(any)` | n/a | yes |
+| <a name="input_workspace_working_directory_prefix"></a> [workspace\_working\_directory\_prefix](#input\_workspace\_working\_directory\_prefix) | Terraform Cloud working directory prefix | `string` | n/a | yes |
 
-# AWS 인증 정보 
-export TF_VAR_aws_access_key=<AWS_ACCESS_KEY_ID>
-export TF_VAR_aws_secret_access_key=<AWS_SECRET_ACCESS_KEY>
+## Outputs
 
-# Slack Webhook URL
-export TF_VAR_slack_webhook_url=<SLACK_WEBHOOK_URL>
-```
-- ORGANIZATION: backend에서 설정했던 값과 똑같이 작성해줍니다. 
-- AWS_ACCESS_KEY_ID: 위에서 전달 받은 Access Key ID
-- AWS_SECRET_ACCESS_KEY: 위에서 전달 받은 Secret Access Key
-- SLACK_WEBHOOK_URL: 위에서 설정한 Slack Webhook URL
-
-
-그리고 terraform.tfvars에서 일부 변수들을 지정해 줍니다.
-```sh
-# terraform.tfvars
-tfc_org   = "<AWS_ACCOUNT>"
-tfc_owner = "<USER_EMAIL>"
-tfc_membership = [
-]
-
-...
-
-github_username   = "<GITHUB_USERNAME>"
-github_repository = "<GITHUB_REPOSITORY>"
-github_branch = {
-  default = "main"
-  dev     = "develop"
-}
-
-...
-
-aws_account_id = "<AWS_ACCOUNT_NUM>"
-
-...
-
-tags_iac  = "terraform"
-tags_team = "<TEAM_NAME>"
-...
-```
-- AWS_ACCOUNT: 이메일 형식의 AWS root account에서 계정 부분  
-(ex ldy9037@naver.com 에서 ldy9037)  
-- USER_EMAIL: Terraform Cloud 관리자 지정
-- GITHUB_REPOSITORY: Github Repository 명
-- AWS_ACCOUNT_ID: 숫자 형식의 AWS account ID  
-(ex 91239423223)
-- tags_team: 본인이 속한 팀 이름  
-(ex DevOps Team, Backend Team) 
-
-만약 Terraform Cloud상에 다른 사용자도 추가해놓고 싶다면 tfc_membership 하위에 사용자의 이메일을 입력해줍니다. tfc_owner는 제외해주세요.
-```sh
-# ex
-tfc_membership = [
-  "test1@google.com",
-  "test2@naver.com",
-  "test3@daum.net",
-  ...
-]
-```
-
-위 설정이 끝났다면 Terraform을 초기화하면서 Backend를 설정해줍니다. 
-
-```sh
-terraform init \
--backend-config="bucket=$TF_VAR_s3_tfstate_bucket_name" \
--backend-config="key=$TF_VAR_s3_tfstate_bucket_key" \
--backend-config="region=$TF_VAR_region" \
--backend-config="encrypt=$TF_VAR_s3_tfstate_bucket_encryt" \
--backend-config="acl=$TF_VAR_s3_tfstate_bucket_acl" \
--backend-config="dynamodb_table=$TF_VAR_dynamodb_tfstate_lock_table_name"
-```
-
-이제 구성을 적용합니다. 하지만 OAuth 설정을 해야하기 때문에 Organization만 생성해줍니다.
-```sh
-terraform apply -target=tfe_organization.organization
-```
-
-organization이 생성됐다면 [가이드](https://www.terraform.io/cloud-docs/vcs/github)를 보고 Github와 연동합니다. 진행자가 Github 내 팀 repository들에 대한 Webhook 권한을 가지고 있어야 합니다. 만약 없다면 해당 권한이 있는 사용자에게 위 작업을 요청해주세요.
-
-VCS 연동이 되었다면 연동 작업 중에 Terraform app을 설치하고 받은 OAuth Token ID를 환경 변수 OAUTH_TOKEN_ID로 지정해줍니다. 
-OAuth Token ID는 Organization > Settings > Providers에서 확인 할 수 있습니다.
-```sh
-# OAuth Oauth ID
-export TF_VAR_oauth_token_id=<OAUTH_TOKEN_ID>
-```
-
-이제 Terraform을 반영합니다.
-```sh
-$ terraform apply
-```
-
-## 주의사항
-- backend에서 설정했던 organization과 terraform cloud organization은 같은 값이 아닙니다. 조직 구성에 맞게 지정해주세요.
-- terraform cloud workspace와 terraform workspace는 다른 개념입니다. terraform cloud workspace는 terraform cloud 상에서의 작업 공간이고 terraform workspace는 terraform state에 대한 작업 공간입니다. github의 branch 개념과 비슷합니다. 
-
-## 참고
-- [Terraform tfe Provider](https://registry.terraform.io/providers/hashicorp/tfe/latest/docs)
-- [Terraform Backend Type: S3](https://www.terraform.io/language/settings/backends/s3)
-- [Terraform State 정리](https://emadam.tistory.com/54)
-- [Terraform Cloud VCS 연동](https://www.terraform.io/cloud-docs/vcs/github)
-
-## 제작자
-[ldy9037@naver.com](https://github.com/ldy9037)
+No outputs.
+<!-- END_TF_DOCS -->

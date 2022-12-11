@@ -1,67 +1,40 @@
-## Table of Contents
+<!-- BEGIN_TF_DOCS -->
+## Requirements
 
-- [소개](#소개)
-- [시작하기](#시작하기)
-- [주의사항](#주의사항)
-- [참고](#참고)
-- [제작자](#제작자)
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.7 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 4.11.0 |
 
-## 소개
+## Providers
 
- AWS Starter Package 중 IAM resource들을 모아놓은 Directory  
- 모든 IAM을 여기서 설정하는 것은 아닙니다. 공통으로 사용되는 Group이나 내/외부 사용자들을 구성합니다. 각 Resource 별로 사용되는 role이나 policy들은 해당 resource 생성 시 같이 작성해주시면 됩니다
- 
- ##### 기술 스택
- - terraform v1.1.7
- - [aws provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
- 
-## 시작하기
-### 초기 세팅
-main.tf에서 아래 값을 변경해줍니다.
-```sh
-# main.tf
-terraform {
-  ...
+No providers.
 
-  cloud {
-    organization = "<AWS_ACCOUNT>"
-    workspaces {
-      name = "iam"
-    }
-  }
+## Modules
 
-  required_version = ">= 1.1.7"
-}
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_iam_user_administrator"></a> [iam\_user\_administrator](#module\_iam\_user\_administrator) | terraform-aws-modules/iam/aws//modules/iam-user | 5.1.0 |
 
-...
-```
-- AWS_ACCOUNT: 이메일 형식의 AWS root account에서 계정 부분  
-(ex ldy9037@naver.com 에서 ldy9037)    
+## Resources
 
-terraform.tfvars에서도 아래 값을 변경해줍니다.
-```sh
-# terraform.tfvars
-iam_account_alias = "<ALIAS>"
+No resources.
 
-...
-```
-- ALIAS: <최상위 조직>-<부서>-<환경>  
+## Inputs
 
-그 다음 Terraform을 초기화합니다.
-```sh
-terraform init
-```
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_aws_account_id"></a> [aws\_account\_id](#input\_aws\_account\_id) | AWS Account ID | `string` | n/a | yes |
+| <a name="input_iam_user"></a> [iam\_user](#input\_iam\_user) | IAM User 목록 | `map(any)` | n/a | yes |
+| <a name="input_iam_user_create_iam_access_key"></a> [iam\_user\_create\_iam\_access\_key](#input\_iam\_user\_create\_iam\_access\_key) | IAM User Access key 초기 생성 여부 | `bool` | n/a | yes |
+| <a name="input_iam_user_create_login_profile"></a> [iam\_user\_create\_login\_profile](#input\_iam\_user\_create\_login\_profile) | IAM User login 허용 여부 | `bool` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | AWS Region | `string` | n/a | yes |
+| <a name="input_tags_environment"></a> [tags\_environment](#input\_tags\_environment) | AWS Resource 환경 | `string` | n/a | yes |
+| <a name="input_tags_iac"></a> [tags\_iac](#input\_tags\_iac) | Resource에 어떤 IaC를 사용했는지 | `string` | n/a | yes |
+| <a name="input_tags_owner"></a> [tags\_owner](#input\_tags\_owner) | AWS Resource의 소유자 | `string` | n/a | yes |
+| <a name="input_tags_team"></a> [tags\_team](#input\_tags\_team) | 어느 팀이 관리하고 있는지 | `string` | n/a | yes |
 
-Terraform 구성 적용은 Terraform Cloud에서만 가능합니다. 로컬에서는 plan으로 구성 확인만 할 수 있습니다. 
-```sh
-terraform plan
-```
+## Outputs
 
-## 주의사항
-- Monitoring 보다 먼저 실행되어야 합니다.
-
-## 참고
-- [Terraform aws Provider](https://registry.terraform.io/providers/hashicorp/aws/latest/docs)
-
-## 제작자
-[ldy9037@naver.com](https://github.com/ldy9037)
+No outputs.
+<!-- END_TF_DOCS -->
