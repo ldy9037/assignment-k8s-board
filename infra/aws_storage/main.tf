@@ -73,25 +73,10 @@ module "s3_static_contents" {
   }
 }
 
-resource "aws_route53_record" "static_content_record" {
+resource "aws_route53_record" "s3_record" {
   zone_id = values(data.tfe_outputs.dns_output.values.route53_zones_id)[0]
   name    = var.route53_record_name
   type    = var.route53_record_type
   ttl     = var.route53_record_ttl
-  records = var.route53_record_records
-}
-
-module "static_contents_acm" {
-  source  = "terraform-aws-modules/acm/aws"
-  version = "4.3.1"
-
-  providers = {
-    aws = aws.us-east-1
-  }
-
-  domain_name = "${var.route53_record_name}.${values(data.tfe_outputs.dns_output.values.route53_zones_name)[0]}"
-  zone_id     = values(data.tfe_outputs.dns_output.values.route53_zones_id)[0]
-
-  create_route53_records = var.static_contents_acm_create
-  wait_for_validation    = var.static_contents_acm_wfv
+  records = [module.s3_static_contents.s3_bucket_website_endpoint]
 }
