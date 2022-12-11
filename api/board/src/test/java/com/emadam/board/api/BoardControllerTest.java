@@ -86,7 +86,6 @@ public class BoardControllerTest {
 
     private static BoardRequest getBoardRequestFixture(long id) {
         BoardRequest boardRequest = new BoardRequest();
-        boardRequest.setId(id);
         boardRequest.setSubject("subject");
         boardRequest.setContent("content");
         boardRequest.setUsername("username");

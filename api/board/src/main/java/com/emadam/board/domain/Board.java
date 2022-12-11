@@ -62,7 +62,6 @@ public class Board {
 
     public static Board create(BoardRequest boardRequest) {
         Board board = new Board();
-        board.setId(boardRequest.getId());
         board.setSubject(boardRequest.getSubject());
         board.setContent(boardRequest.getContent());
         board.setUsername(boardRequest.getUsername());
