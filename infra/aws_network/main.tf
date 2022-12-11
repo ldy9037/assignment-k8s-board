@@ -40,6 +40,10 @@ module "vpc" {
   private_subnets  = var.private_subnets
   public_subnets   = var.public_subnets
 
+  public_subnet_tags = {
+    "kubernetes.io/role/elb" = 1
+  }
+
   create_database_subnet_group = var.create_database_subnet_group
   enable_nat_gateway           = var.enable_nat_gateway
 }
