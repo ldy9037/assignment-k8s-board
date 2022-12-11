@@ -29,6 +29,11 @@ provider "aws" {
   }
 }
 
+provider "aws" {
+  alias  = "us-east-1"
+  region = "us-east-1"
+}
+
 data "tfe_outputs" "dns_output" {
   organization = var.organization_name
   workspace    = var.dns_workspace_name
@@ -81,6 +86,10 @@ resource "aws_route53_record" "static_content_record" {
 module "static_contents_acm" {
   source  = "terraform-aws-modules/acm/aws"
   version = "4.3.1"
+
+  providers = {
+    aws = aws.us-east-1
+  }
 
   domain_name = "${var.route53_record_name}.${values(data.tfe_outputs.dns_output.values.route53_zones_name)[0]}"
   zone_id     = values(data.tfe_outputs.dns_output.values.route53_zones_id)[0]
