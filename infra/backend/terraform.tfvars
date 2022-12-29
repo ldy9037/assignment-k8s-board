@@ -11,5 +11,5 @@ s3_tfstate_bucket_force_destroy             = "false"
 s3_tfstate_bucket_logging_target_prefix     = "tfstate/"
 s3_tfstate_bucket_logging_versioning_status = "false"
 
-s3_log_bucket_name = "s3-tfstate-log-k8s-app"
+s3_log_bucket_name = "s3-tfstate-log-emd-blog"
 s3_log_bucket_acl  = "log-delivery-write"
