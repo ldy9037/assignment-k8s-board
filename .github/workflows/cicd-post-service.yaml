@@ -14,10 +14,11 @@ on:
 jobs:
   code-tests:
     runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: ./api/post
     steps:
     - uses: actions/checkout@v3
-      with:
-        path: 'api/post'
     - uses: actions/setup-java@v3
       with: 
         distribution: 'zulu'
