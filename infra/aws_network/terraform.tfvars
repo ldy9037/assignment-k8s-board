@@ -1,4 +1,4 @@
-vpc_name                     = "k8s-board-vpc"
+vpc_name                     = "emd-blog-vpc"
 vpc_cidr                     = "192.168.0.0/24"
 database_subnets             = ["192.168.0.0/27", "192.168.0.32/27"]
 private_subnets              = ["192.168.0.64/27", "192.168.0.96/27"]

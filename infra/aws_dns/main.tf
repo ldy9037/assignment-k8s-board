@@ -7,7 +7,7 @@ terraform {
   }
 
   cloud {
-    organization = "k8s-app"
+    organization = "emd-blog"
     workspaces {
       name = "dns"
     }

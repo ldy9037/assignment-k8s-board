@@ -1,5 +1,5 @@
 # s3 for cloudtrail
-cloudtrail_s3_bucket = "s3-cloudtrail-logs-management-k8s-app"
+cloudtrail_s3_bucket = "s3-cloudtrail-logs-management-emd-blog"
 s3_bucket_acl        = "private"
 force_destroy        = true
 
