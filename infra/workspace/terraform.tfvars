@@ -1,4 +1,4 @@
-tfc_org   = "k8s-app"
+tfc_org   = "emd-blog"
 tfc_owner = "ldy9037@naver.com"
 tfc_membership = [
 ]
@@ -8,7 +8,7 @@ tfc_terraform_version = "= 1.1.7"
 oauth_client_service_provider = "github"
 
 github_username   = "ldy9037"
-github_repository = "assignment-k8s-board"
+github_repository = "emd-blog"
 github_branch     = "main"
 
 
