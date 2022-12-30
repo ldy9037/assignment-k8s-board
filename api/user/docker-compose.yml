@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  service:
+    container_name: user-service
+    image: nginx:latest
+    ports:
+      - "9000:80"
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./static:/usr/src/static
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  api:
+    container_name: user-api
+    image: python:3.10
+    command:
+      - /bin/sh
+      - -c
+      - | 
+        cd /usr/src/
+        pip install --upgrade pip
+        pip install -r requirements.txt
+        echo yes | python manage.py collectstatic
+        ls -l
+        gunicorn --workers=1 user.wsgi:application --bind 0.0.0.0:8000 --env DJANGO_SETTINGS_MODULE=user.settings --reload
+    volumes:
+      - ./:/usr/src/
+    expose:
+      - "8000"
