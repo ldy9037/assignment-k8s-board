@@ -1,0 +1,30 @@
+name: "Continuous Integration - Spring App"
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**/README.md'
+      - 'infra/**'
+      - 'readme_image/**'
+      - 'webapp/**'
+      - 'api/user/**'
+      - '**/.gitignore'
+
+jobs:
+  code-tests:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: 'api/post'
+    - uses: actions/setup-java@v3
+      with: 
+        distribution: 'zulu'
+        java-version: '8'
+    - name: Unit Tests
+      timeout-minutes: 10
+      run: ./gradlew check
+
+
+    
