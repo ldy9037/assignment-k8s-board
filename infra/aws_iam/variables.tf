@@ -42,3 +42,23 @@ variable "tags_environment" {
   description = "AWS Resource 환경"
   type        = string
 }
+
+variable "github_actions_deploy_policy_name" {
+  description = "Github Actions 용 deploy policy 이름"
+  type        = string
+}
+
+variable "github_actions_deploy_policy_path" {
+  description = "Github Actions 용 deploy policy path"
+  type        = string
+}
+
+variable "github_actions_deploy_policy_description" {
+  description = "Github Actions 용 deploy policy 설명"
+  type        = string
+}
+
+variable "iam_github_oidc_role_name" {
+  description = "Github OIDC 역할 명"
+  type        = string
+}
