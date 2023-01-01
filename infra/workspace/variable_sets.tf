@@ -86,3 +86,19 @@ resource "tfe_variable" "dns_workspace_name" {
   description     = "DNS workspace name"
   variable_set_id = tfe_variable_set.variable_set_global.id
 }
+
+resource "tfe_variable" "github_username" {
+  key             = "github_username"
+  value           = var.github_username
+  category        = "terraform"
+  description     = "Github username or organization"
+  variable_set_id = tfe_variable_set.variable_set_global.id
+}
+
+resource "tfe_variable" "github_repository" {
+  key             = "github_repository"
+  value           = var.github_repository
+  category        = "terraform"
+  description     = "Github repository"
+  variable_set_id = tfe_variable_set.variable_set_global.id
+}
