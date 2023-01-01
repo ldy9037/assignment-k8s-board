@@ -52,6 +52,8 @@ module "iam_github_oidc_role" {
 
   name = var.iam_github_oidc_role_name
 
+  subjects = ["${var.github_username}/${var.github_repository}:*"]
+
   policies = {
     GithubActionsDeployPolicy = module.github_actions_deploy_policy.arn
   }

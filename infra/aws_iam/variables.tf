@@ -43,6 +43,16 @@ variable "tags_environment" {
   type        = string
 }
 
+variable "github_username" {
+  description = "Github username or organization"
+  type        = string
+}
+
+variable "github_repository" {
+  description = "Github repository"
+  type        = string
+}
+
 variable "github_actions_deploy_policy_name" {
   description = "Github Actions 용 deploy policy 이름"
   type        = string
