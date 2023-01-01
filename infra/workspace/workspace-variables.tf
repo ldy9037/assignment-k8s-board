@@ -22,12 +22,12 @@ resource "tfe_variable" "iam_tags_environment" {
   workspace_id = tfe_workspace.iam_workspace.id
 }
 
-resource "tfe_variable" "k8s_tags_environment" {
+resource "tfe_variable" "eks_tags_environment" {
   key          = "tags_environment"
   value        = var.project_env["prod"]
   category     = "terraform"
   description  = "AWS Resource environment"
-  workspace_id = tfe_workspace.k8s_workspace.id
+  workspace_id = tfe_workspace.eks_workspace.id
 }
 
 resource "tfe_variable" "monitoring_tags_environment" {

@@ -39,11 +39,11 @@ resource "tfe_workspace" "iam_workspace" {
   }
 }
 
-resource "tfe_workspace" "k8s_workspace" {
-  name                = var.workspace_name["k8s"]
+resource "tfe_workspace" "eks_workspace" {
+  name                = var.workspace_name["eks"]
   organization        = tfe_organization.organization.id
   terraform_version   = var.tfc_terraform_version
-  working_directory   = "${var.workspace_working_directory_prefix}/${var.workspace_working_directory["k8s"]}"
+  working_directory   = "${var.workspace_working_directory_prefix}/${var.workspace_working_directory["eks"]}"
   global_remote_state = true
 
   vcs_repo {
