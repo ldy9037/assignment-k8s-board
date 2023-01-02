@@ -13,25 +13,37 @@ github_branch     = "main"
 
 
 workspace_name = {
-  iam        = "iam"
-  monitoring = "monitoring"
-  network    = "network"
-  storage    = "storage"
-  cicd       = "cicd"
-  dns        = "dns"
-  eks        = "eks"
+  common = {
+    iam        = "common-iam"
+    monitoring = "common-monitoring"
+    network    = "common-network"
+    storage    = "common-storage"
+    cicd       = "common-cicd"
+    dns        = "common-dns"
+  }
+  service = {
+    blog = {
+      common = "service-blog-common"
+    }
+  }
 }
 
 workspace_working_directory_prefix = "infra"
 
 workspace_working_directory = {
-  iam        = "aws_iam"
-  monitoring = "aws_monitoring"
-  network    = "aws_network"
-  storage    = "aws_storage"
-  cicd       = "aws_cicd"
-  dns        = "aws_dns"
-  eks        = "aws_eks"
+  common = {
+    iam        = "common/iam"
+    monitoring = "common/monitoring"
+    network    = "common/network"
+    storage    = "common/storage"
+    cicd       = "common/cicd"
+    dns        = "common/dns"
+  }
+  service = {
+    blog = {
+      common = "service/blog/common"
+    }
+  }
 }
 
 aws_account_id = "901371017570"

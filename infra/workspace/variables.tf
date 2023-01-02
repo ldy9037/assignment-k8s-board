@@ -51,7 +51,6 @@ variable "github_branch" {
 
 variable "workspace_name" {
   description = "Terraform Cloud Workspace 이름"
-  type        = map(any)
 }
 
 variable "workspace_working_directory_prefix" {
@@ -61,7 +60,6 @@ variable "workspace_working_directory_prefix" {
 
 variable "workspace_working_directory" {
   description = "Terraform Cloud working directory"
-  type        = map(any)
 }
 
 variable "project_env" {
