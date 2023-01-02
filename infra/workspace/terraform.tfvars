@@ -24,6 +24,7 @@ workspace_name = {
   service = {
     blog = {
       common = "service-blog-common"
+      post   = "service-blog-post"
     }
   }
 }
@@ -42,6 +43,7 @@ workspace_working_directory = {
   service = {
     blog = {
       common = "service/blog/common"
+      post   = "service/blog/post"
     }
   }
 }
