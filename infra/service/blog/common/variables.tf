@@ -43,21 +43,6 @@ variable "dns_workspace_name" {
   type        = string
 }
 
-variable "ecr_post_repository_name" {
-  description = "post api 용 ECR Repository 명"
-  type        = string
-}
-
-variable "ecr_post_repository_image_tag_mutability" {
-  description = "태그 변경 가능 여부"
-  type        = string
-}
-
-variable "ecr_post_repository_lifecycle_policy" {
-  description = "post api 용 ECR lifecycle 정책"
-  type        = list(any)
-}
-
 variable "eks_cluster_name" {
   description = "Blog Cluster 이름"
   type        = string
