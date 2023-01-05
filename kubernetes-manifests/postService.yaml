@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postService
+  labels:
+    app: postService
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: postService
+  template:
+    metadata:
+      labels:
+        app: postService
+    spec:
+      containers:
+      - name: postService
+        image: 901371017570.dkr.ecr.ap-northeast-2.amazonaws.com/post-api:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postService
+  labels:
+    app: postService
+spec:
+  selector:
+    app: postService
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
