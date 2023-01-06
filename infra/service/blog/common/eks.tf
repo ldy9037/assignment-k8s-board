@@ -12,3 +12,16 @@ resource "aws_eks_cluster" "eks_cluster" {
   ]
 }
 
+resource "kubernetes_config_map" "eks_cluster_config_map" {
+  data = {
+    "mapRoles" = ""
+  }
+
+  metadata {
+    name      = ""
+    namespace = ""
+  }
+}
+
+
+
