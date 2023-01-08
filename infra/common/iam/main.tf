@@ -85,10 +85,7 @@ module "github_actions_deploy_policy" {
         "ecr:UploadLayerPart"
       ],
       "Effect": "Allow",
-      "Resource": [
-        "arn:aws:s3:::*",
-        "arn:aws:ecr:::*"
-      ]
+      "Resource": "*"
     }
   ]
 }
