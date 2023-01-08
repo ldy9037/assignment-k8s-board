@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postService
+  name: postservice
   labels:
-    app: postService
+    app: postservice
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: postService
+      app: postservice
   template:
     metadata:
       labels:
-        app: postService
+        app: postservice
     spec:
       containers:
-      - name: postService
+      - name: postservice
         image: 901371017570.dkr.ecr.ap-northeast-2.amazonaws.com/post-api:latest
         imagePullPolicy: Always
         ports:
@@ -24,12 +24,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: postService
+  name: postservice
   labels:
-    app: postService
+    app: postservice
 spec:
   selector:
-    app: postService
+    app: postservice
   type: NodePort
   ports:
     - protocol: TCP
