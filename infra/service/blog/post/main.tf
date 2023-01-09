@@ -39,6 +39,11 @@ data "tfe_outputs" "dns_output" {
   workspace    = var.dns_workspace_name
 }
 
+data "tfe_outputs" "iam_output" {
+  organization = var.organization_name
+  workspace = "common-iam"
+}
+
 data "tfe_outputs" "blog_common_output" {
   organization = var.organization_name
   workspace    = var.blog_common_workspace_name

@@ -73,16 +73,9 @@ module "github_actions_deploy_policy" {
   "Statement": [
     {
       "Action": [
-        "s3:PutObject",
-        "s3:DeleteObject",
-        "s3:GetObject",
-        "s3:ListBucket",
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:CompleteLayerUpload",
         "ecr:GetAuthorizationToken",
-        "ecr:InitiateLayerUpload",
-        "ecr:PutImage",
-        "ecr:UploadLayerPart"
+        "eks:DescribeCluster",
+        "eks:ListClusters"
       ],
       "Effect": "Allow",
       "Resource": "*"

@@ -34,3 +34,7 @@ node_group_ami_type        = "AL2_x86_64"
 node_group_capacity_type   = "ON_DEMAND"
 node_group_disk_size       = 20
 node_group_instance_types  = ["t3.medium"]
+
+ecr_push_policy_name        = "BlogPostECRPushPolicy"
+ecr_push_policy_path        = "/"
+ecr_push_policy_description = "Blog Post API ECR에 Push 하기위한 IAM 정책"

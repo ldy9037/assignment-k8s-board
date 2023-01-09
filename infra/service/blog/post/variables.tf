@@ -43,6 +43,11 @@ variable "dns_workspace_name" {
   type        = string
 }
 
+variable "iam_workspace_name" {
+  description = "IAM workspace name"
+  type        = string
+}
+
 variable "blog_common_workspace_name" {
   description = "Blog common workspace name"
   type        = string
@@ -122,4 +127,19 @@ variable "node_group_disk_size" {
 variable "node_group_instance_types" {
   description = "node group 내 node의 instance type"
   type        = list(string)
+}
+
+variable "ecr_push_policy_name" {
+  description = "ECR Push 정책 이름"
+  type        = string
+}
+
+variable "ecr_push_policy_path" {
+  description = "ECR Push 정책 경로"
+  type        = string
+}
+
+variable "ecr_push_policy_description" {
+  description = "ECR Push 정책 설명"
+  type        = string
 }

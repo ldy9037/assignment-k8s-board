@@ -87,6 +87,14 @@ resource "tfe_variable" "dns_workspace_name" {
   variable_set_id = tfe_variable_set.variable_set_global.id
 }
 
+resource "tfe_variable" "iam_workspace_name" {
+  key             = "iam_workspace_name"
+  value           = tfe_workspace.iam_workspace.name
+  category        = "terraform"
+  description     = "IAM workspace name"
+  variable_set_id = tfe_variable_set.variable_set_global.id
+}
+
 resource "tfe_variable" "blog_common_workspace_name" {
   key             = "blog_common_workspace_name"
   value           = tfe_workspace.blog_common_workspace.name
