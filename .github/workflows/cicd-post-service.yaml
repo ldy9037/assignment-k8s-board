@@ -72,12 +72,12 @@ jobs:
       with:
         role-to-assume: arn:aws:iam::901371017570:role/GithubDeployRole
         aws-region: ap-northeast-2
-    - name: Build and push docker image to Amazon ECR
+    - name: Apply manifests
       env:
         CLUSTER: blog-cluster
         REGION: ap-northeast-2
       run: |
         aws eks update-kubeconfig --region $REGION --name $CLUSTER
-        kubectl apply -f kubernetes-manifests/postservice.yaml
+        kubectl apply -f ./kubernetes-manifests
     
     
